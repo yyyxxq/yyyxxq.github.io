@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="John Doe">
+    
+    
+    
+    
+    
+    
+    <title>NOI 2018归程 | illyasviel</title>
+    <!-- inject:style -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <style>
+        .cube-loading {
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('/images/lg/loading.gif') no-repeat center center;
+            background-color: rgba(0,0,0,.7);
+        }
+
+        .cube-loading.out {
+            display: none;
+        }
+
+        .cube-loading:before {
+            display: block;
+            content: 'Loading';
+            position: relative;
+            width: 100%;
+            top: 50%;
+            right: -50%;
+            color: #fff;
+        }
+
+        @media(max-width: 768px) {
+            .cube-loading:before {
+                font-size: 1.2em;
+                transform: translate(-24px,20px);
+                -webkit-transform: translate(-24px,20px);
+                -o-transform: translate(-24px,20px);
+                -ms-transform: translate(-24px,20px);
+            }
+        }
+
+        @media(min-width: 768px) {
+            .cube-loading:before {
+
+            }
+        }
+    </style>
+    
+
+<link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.0.0/styles/monokai-sublime.min.css">
+<div class="cube-body">
+    <nav id="cube-top-memu" class="cube-menu">
+    <ul class="cube-menu-collapse">
+        
+        <li>
+            <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+            <a href="/">首页</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
+            <a href="/archives">归档</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
+            <a href="/categories">分类</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-tags" aria-hidden="true"></i>
+            <a href="/tags">标签</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
+            <a href="/about-me">关于我</a>
+        </li>
+        
+    </ul>
+</nav>
+<nav class="cube-side-menu" id="cube-side-menu">
+    <ul class="cube-menu-list">
+        
+        <li>
+            <a class="lrc-control">Open Lyrics</a>
+        </li>
+        
+        <li>
+            <a class="scroll-to-top">Top</a>
+        </li>
+    </ul>
+</nav>
+    <header class="cube-header" id="cube-header">
+    <img src=" https://yyxxqq.github.io/picture/无标题.jpg " alt="头部背景图片">
+    
+    <div class="cube-type">
+        <span class="cube-typed-title">yyyxxq</span>
+        <span class="cube-typed-cursor">|</span>
+    </div>
+    
+</header>
+
+    <style>
+        nav.cube-menu:before {
+            content: '';
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+        
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+        
+            z-index: -1;
+            background-image: url('https://raw.githubusercontent.com/yyxxqq/yyxxqq.github.io/master/picture/back.jpg');
+            background-repeat: no-repeat;
+            background-position: center -206px;
+            background-size: cover;
+            background-color: transparent;
+        }
+
+        header.cube-background.cube-header-background {
+            visibility: hidden;
+            background-image: url('https://raw.githubusercontent.com/yyxxqq/yyxxqq.github.io/master/picture/back.jpg');
+            background-position: center -250px;
+        }
+    </style>
+    <header class="cube-background cube-header-background">
+        
+        <div class="cube-type">
+            <span class="cube-typed-title">yyyxxq</span>
+            <span class="cube-typed-cursor">|</span>
+        </div>
+        
+    </header>
+    <div class="load-header-background"></div>
+    <script>
+        (function (window) {
+
+            window.headerModule = {}
+            window.headerModule.image = {
+                width: '3806',
+                height: '2160'
+            }
+
+        })(window)
+    </script>
+    
+    <div class="cube-content">
+        <div class="cube-left">
+            <div class="cube-article">
+    <h1 class="title">NOI 2018归程</h1>
+    
+    <div class="cube-article-header">
+        <div class="cube-article-date">
+            <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+            <!-- moment.js对象 -->
+            2018-07-17
+        </div>
+        <div class="cube-article-tags">
+    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+    
+    <a href="/tags/NOI/">#NOI</a>
+    
+    <a href="/tags/可持久化并查集/">#可持久化并查集</a>
+    
+</div>
+    </div>
+    
+    <div class="cube-article-content cube-markdown">
+        
+        <h2 id="题解"><a class="markdownIt-Anchor" href="#题解"></a> 题解：</h2>
+<h3 id="直接上可持久化并查集两个log机房里有人爆碾过去了然而我常数超大被卡了两个点qwq-spfa被卡教你做人本地十三秒的大数据spfa跑了十一秒"><a class="markdownIt-Anchor" href="#直接上可持久化并查集两个log机房里有人爆碾过去了然而我常数超大被卡了两个点qwq-spfa被卡教你做人本地十三秒的大数据spfa跑了十一秒"></a>     直接上可持久化并查集两个log(机房里有人爆碾过去了，然而我常数超大，被卡了两个点qwq)。（SPFA被卡教你做人（本地十三秒的大数据SPFA跑了十一秒……））</h3>
+<h3 id="强烈谴责施工团队获得成就在工地里打noi同步赛正下方拆地板-b的44暴力和c的60多的暴力在口头糊出来了然而我逃到四楼去写题里面有人特别吵完全无法集中注意力一个弱智a题写了两个多小时虽然好像是甩锅不过外界因素对我的影响确实有点大属于那种环境稍微炸点就自闭的选手qwq"><a class="markdownIt-Anchor" href="#强烈谴责施工团队获得成就在工地里打noi同步赛正下方拆地板-b的44暴力和c的60多的暴力在口头糊出来了然而我逃到四楼去写题里面有人特别吵完全无法集中注意力一个弱智a题写了两个多小时虽然好像是甩锅不过外界因素对我的影响确实有点大属于那种环境稍微炸点就自闭的选手qwq"></a>     强烈谴责施工团队，获得成就，在工地里打noi同步赛（正下方拆地板……）。B的44暴力和C的60多的暴力在口头糊出来了，然而我逃到四楼去写题里面有人特别吵，完全无法集中注意力（一个弱智A题写了两个多小时）（虽然好像是甩锅，不过外界因素对我的影响确实有点大，属于那种环境稍微炸点就自闭的选手qwq）。</h3>
+<pre class="highlight"><code class="cpp">#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;queue&gt;
+#include&lt;algorithm&gt;
+#define N 3200000
+#define M 12000000
+#define pa pair&lt;int,int&gt;
+using namespace std;
+struct node{
+	int x,y,l,a;//l长度 a海拔 
+}a[N];
+struct illyasviel{
+	int p,c,id;//c出发节点 p海拔高度 
+}b[N];
+int h[N],v[N],Next[N],d[N],l[N],p[N],w[N];
+int tot,n,m,Q;
+bool cmp(node x,node y){
+	return x.a&gt;y.a;
+}
+bool cmp1(illyasviel x,illyasviel y){
+	return x.p&gt;y.p; 
+}
+struct bing{
+	int sz;
+	int root[N],ls[M],rs[M],v[M],deep[M],dd[M];
+	int clear(){
+		sz=0;
+		memset(root,0,sizeof(root));
+		memset(deep,0,sizeof(deep));
+		memset(ls,0,sizeof(ls));
+		memset(rs,0,sizeof(rs));
+		memset(dd,0,sizeof(dd));
+		memset(rs,0,sizeof(rs));
+		memset(v,0,sizeof(v));
+	}
+	void build(int &amp;k,int l,int r){
+		if(!k)k=++sz;
+		if(l==r){v[k]=l;dd[k]=d[l];return;}
+		int mid=(l+r)&gt;&gt;1;
+		build(ls[k],l,mid);
+		build(rs[k],mid+1,r);
+	}
+	void modify(int l,int r,int x,int &amp;y,int pos,int val,int bal){
+		y=++sz;
+		if(l==r){v[y]=val;dd[y]=bal;deep[y]=deep[x];return;}
+		ls[y]=ls[x];rs[y]=rs[x];
+		int mid=(l+r)&gt;&gt;1;
+		if(pos&lt;=mid)
+			modify(l,mid,ls[x],ls[y],pos,val,bal);
+		else modify(mid+1,r,rs[x],rs[y],pos,val,bal);
+	}
+	int query(int k,int l,int r,int pos){
+		if(l==r)return k;
+		int mid=(l+r)&gt;&gt;1;
+		if(pos&lt;=mid)return query(ls[k],l,mid,pos);
+		else return query(rs[k],mid+1,r,pos);
+	}
+	void add(int k,int l,int r,int pos){
+		if(l==r){deep[k]++;return;}
+		int mid=(l+r)&gt;&gt;1;
+		if(pos&lt;=mid)add(ls[k],l,mid,pos);
+		else add(rs[k],mid+1,r,pos);
+	}
+	int find(int k,int x){
+	    int p=query(k,1,n,x);
+		if(x==v[p])return p;
+	    return find(k,v[p]);
+	}
+	int bin(int a,int b,int i){
+		root[i+n]=root[i-1];
+		root[i]=root[i-1];
+		int p=find(root[i],a),q=find(root[i],b);
+		if(v[p]==v[q])return 0;
+		if(deep[p]&gt;deep[q])swap(p,q);
+		modify(1,n,root[i-1],root[i+n],v[q],v[q],min(dd[p],dd[q])); 
+		modify(1,n,root[i+n],root[i],v[p],v[q],min(dd[p],dd[q])); 
+		if(deep[p]==deep[q])add(root[i],1,n,v[q]);
+	}
+	int get(int rt,int a){
+		return dd[find(rt,a)];
+	}
+}sb;
+int add(int x,int y,int z){
+	tot++;
+	Next[tot]=h[x];
+	v[tot]=y;
+	w[tot]=z;
+	h[x]=tot;
+	tot++;
+	Next[tot]=h[y];
+	v[tot]=x;
+	w[tot]=z;
+	h[y]=tot;
+}
+int find(int x){
+	int ll=0,r=m;
+	while(r-ll&gt;5){
+		int mid=(ll+r)/2;
+		if(l[mid]&gt;x)ll=mid;
+		else r=mid-1;
+	}
+	for(int i=r;i&gt;=ll;i--){
+		if(l[i]&gt;x)return i;
+	}
+	return ll;
+}
+void dijkstra()
+{
+	priority_queue&lt;pa,vector&lt;pa&gt;,greater&lt;pa&gt; &gt;q;
+	memset(d,0x7f,sizeof(d));
+	d[1]=0;q.push(make_pair(0,1));
+	while(!q.empty()){
+		int now=q.top().second;q.pop();
+		for(int i=h[now];i;i=Next[i])
+			if(d[now]+w[i]&lt;d[v[i]]){
+				d[v[i]]=d[now]+w[i];
+				q.push(make_pair(d[v[i]],v[i]));
+			}
+	}
+}
+int main(){
+	freopen(&quot;return.in&quot;,&quot;r&quot;,stdin);
+	freopen(&quot;return.out&quot;,&quot;w&quot;,stdout);
+	int t;
+	scanf(&quot;%d&quot;,&amp;t);
+	while(t--){
+		sb.clear();
+		tot=0;
+		memset(h,0,sizeof(h));
+		scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+		memset(d,0x7f,sizeof(d));
+		d[1]=0;
+		for(int i=1;i&lt;=m;i++)scanf(&quot;%d%d%d%d&quot;,&amp;a[i].x,&amp;a[i].y,&amp;a[i].l,&amp;a[i].a);
+		for(int i=1;i&lt;=m;i++)add(a[i].x,a[i].y,a[i].l);
+		sort(a+1,a+1+m,cmp);
+		dijkstra();
+		sb.build(sb.root[0],1,n);
+		for(int i=1;i&lt;=m;i++){
+			sb.bin(a[i].x,a[i].y,i);
+//			for(int j=1;j&lt;=n;j++)printf(&quot;%d &quot;,sb.v[sb.find(sb.root[i],j)]);
+//			for(int j=1;j&lt;=n;j++)printf(&quot;%d &quot;,sb.dd[sb.find(sb.root[i],j)]);
+//			printf(&quot;\n&quot;);
+		}
+//		for(int i=1;i&lt;=n;i++)printf(&quot;%d &quot;,d[i]);
+//		printf(&quot;\n&quot;);
+		for(int i=1;i&lt;=m;i++)l[i]=a[i].a;
+		l[0]=0x7fffffff;
+		int k,s;
+		scanf(&quot;%d%d%d&quot;,&amp;Q,&amp;k,&amp;s);
+		int lastans=0;
+		for(int i=1;i&lt;=Q;i++){
+			int x,p;
+			scanf(&quot;%d %d&quot;,&amp;x,&amp;p);
+			x=(x+k*lastans-1)%n+1;
+			p=(p+k*lastans)%(s+1);
+			int o=find(p);
+			lastans=sb.dd[sb.find(sb.root[o],x)];
+//			printf(&quot;%d %d %d %d\n&quot;,o,x,p,lastans);
+			printf(&quot;%d\n&quot;,lastans);
+		}
+//		solve2();
+	}
+}
+
+</code></pre>
+<p>题目链接：<a href="https://loj.ac/problem/2718" target="_blank" rel="noopener">「NOI2018」归程</a></p>
+
+    </div>
+</div>
+
+<div class="cube-article-nav">
+    <ul>
+        
+        <li class="prev">
+            <a href="/2018/07/19/雪崩/">
+                <i class="cube-icon cube-prev" aria-hidden="true"></i>
+                PRZ
+            </a>
+        </li>
+        
+        
+        <li class="next">
+            <a href="/2018/07/17/征服王/">
+                征服王
+                <i class="cube-icon cube-next" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+<!-- TODO 根据theme.comment的内容进行入口选择 -->
+
+
+
+        </div>
+        <div class="cube-right">
+            
+
+<div class="cube-search cube-sidebar" id="cube-search">
+    <div class="search-container">
+        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
+        <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
+    </div>
+    <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
+</div>
+<script>
+    (function (window) {
+        'use strict';
+        window.searchModule = {}
+        window.searchModule.JSONUrl = '/content.json'
+        window.searchModule.rootUrl = '/'
+    })(window)
+</script>
+<div class="cube-search-form">
+    <div class="cube-search-control">
+        <input type="text" placeholder="Search" class="search-input">
+        <a class="close-button">
+            <i class="cube-icon cube-close" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="cube-search-result"></div>
+</div>
+
+
+<div class="cube-author cube-sidebar" id="cube-author">
+    
+    
+    <span>John Doe</span>
+    
+    
+    <div class="count">
+        <a class="count articles"><span>62</span>Article</a>
+        <a class="count tags"><span>57</span>Tags</a>
+        <a class="count categories"><span>2</span>Categories</a>
+    </div>
+</div>
+
+
+
+<div class="cube-music cube-sidebar" id="cube-music">
+    <div class="cube-player aplayer" id="cube-player"></div>
+</div>
+<script>
+    (function (window) {
+        window.musicModule = {}
+        window.musicModule.musicConfig = '{"narrow":false,"autoplay":false,"showlrc":3,"theme":"#b7daff","mutex":true,"mode":"circulation","preload":"auto","listmaxheight":"513px","music":[{"title":"彼方 - 星尘","author":"乌龟sui","url":"https://yyxxqq.github.io/music/%E6%98%9F%E5%B0%98%20-%20%E3%80%90%E6%98%9F%E5%B0%98%E3%80%91%E5%BD%BC%E6%96%B9.mp3","lrc":"https://yyxxqq.github.io/music/%E3%80%90%E6%98%9F%E5%B0%98%E3%80%91%E5%BD%BC%E6%96%B9-%E6%98%9F%E5%B0%98.lrc","pic":"http://yoursite.com/images/music/undefined"},{"title":"fhána - ワンダーステラ","author":"fhána","url":"https://yyxxqq.github.io/music/fh%C3%A1na%20-%20%E3%83%AF%E3%83%B3%E3%83%80%E3%83%BC%E3%82%B9%E3%83%86%E3%83%A9.mp3","pic":"http://yoursite.com/images/music/undefined"},{"title":"中島美嘉 - 僕が死のうと思ったのは","author":"中島美嘉","url":"https://yyxxqq.github.io/music/%E4%B8%AD%E5%B3%B6%E7%BE%8E%E5%98%89%20-%20%E5%83%95%E3%81%8C%E6%AD%BB%E3%81%AE%E3%81%86%E3%81%A8%E6%80%9D%E3%81%A3%E3%81%9F%E3%81%AE%E3%81%AF.mp3","lrc":"https://yyxxqq.github.io/music/%E5%83%95%E3%81%8C%E6%AD%BB%E3%81%AE%E3%81%86%E3%81%A8%E6%80%9D%E3%81%A3%E3%81%9F%E3%81%AE%E3%81%AF-%E4%B8%AD%E5%B3%B6%E7%BE%8E%E5%98%89.lrc","pic":"http://yoursite.com/images/music/undefined"}]}'
+        window.musicModule.lrcConfig = {
+            open: 'Open Lyrics',
+            close: 'Close Lyrics'
+        }
+    })(window)
+</script>
+
+
+
+<div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
+    <div class="title">
+        <a>Recent Posts</a>
+    </div>
+    <ul class="list">
+        
+        
+        <li>
+            <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
+            
+            <div class="normal">
+                <p class="index first">
+                    <span>1</span>
+                </p>
+                <p class="title">
+                    <a href="/2018/08/01/暑假计划/" title="2018暑假计划">2018暑假计划</a>
+                </p>
+            </div>
+            
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>2</span>
+                </p>
+                <p class="title">
+                    <a href="/2018/08/01/YNOI2017-由乃的OJ/" title="YNOI2017 由乃的OJ">YNOI2017 由乃的OJ</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>3</span>
+                </p>
+                <p class="title">
+                    <a href="/2018/08/01/SCOI2015-选数/" title="CQOI2015 选数">CQOI2015 选数</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>4</span>
+                </p>
+                <p class="title">
+                    <a href="/2018/08/01/JLOI2015-战争调度/" title="JLOI2015 战争调度">JLOI2015 战争调度</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>5</span>
+                </p>
+                <p class="title">
+                    <a href="/2018/07/31/pyh的求和/" title="pyh的求和">pyh的求和</a>
+                </p>
+            </div>
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+
+<div class="cube-categories cube-sidebar" id="cube-categories">
+    <div class="title">
+        <a href="/categories">Categories</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/OI/">#OI</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/人生/">#人生</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
+    <div class="title">
+        <a href="/tags">Tagcloud</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/高斯消元/">#高斯消元</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/NOIP模拟题/">#NOIP模拟题</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/BZOJ/">#BZOJ</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/分数规划/">#分数规划</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/树链剖分/">#树链剖分</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/凸包/">#凸包</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/后缀自动机/">#后缀自动机</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/线性基/">#线性基</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/树形DP/">#树形DP</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/倍增/">#倍增</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/矩阵快速幂/">#矩阵快速幂</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/特征方程/">#特征方程</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/hash/">#hash</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/二分/">#二分</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/组合数学/">#组合数学</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/计数/">#计数</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/好题/">#好题</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/NOI/">#NOI</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/SPFA/">#SPFA</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/状压DP/">#状压DP</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/最小表示法/">#最小表示法</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/斜率优化/">#斜率优化</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CDQ分治/">#CDQ分治</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/线段树/">#线段树</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/KMP/">#KMP</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/卡常/">#卡常</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/点分治/">#点分治</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/贪心/">#贪心</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/模拟/">#模拟</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/中国剩余定理/">#中国剩余定理</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/莫比乌斯反演/">#莫比乌斯反演</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/杜教筛/">#杜教筛</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/可持久化并查集/">#可持久化并查集</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/可持久化线段树/">#可持久化线段树</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/广义后缀自动机/">#广义后缀自动机</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/分块/">#分块</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/构造/">#构造</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/splay/">#splay</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/博弈论/">#博弈论</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/概率与期望/">#概率与期望</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/记忆化搜索/">#记忆化搜索</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/哈希/">#哈希</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/费用流/">#费用流</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/数学/">#数学</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/dp优化/">#dp优化</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/期望/">#期望</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/计划表/">#计划表</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/概率/">#概率</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/积性函数/">#积性函数</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/最小生成树/">#最小生成树</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/搜索/">#搜索</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/上下界网络流/">#上下界网络流</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/AC自动机/">#AC自动机</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/整体二分/">#整体二分</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/FFT/">#FFT</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/树状数组/">#树状数组</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/后缀数组/">#后缀数组</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-links cube-sidebar" id="cube-links">
+    <div class="title">
+        <a>Links</a>
+    </div>
+    <ul class="list">
+        
+        <li>
+            
+            <a href="" target="_blank">yxq的QQ:1922610598</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="http://cube-1252774894.cosgz.myqcloud.com/links/GitHub.png">
+            
+            <a href="https://www.bilibili.com/bangumi/media/md2575" target="_blank">伊莉雅天下第一可爱！</a>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+<div class="cube-friend-links cube-sidebar" id="cube-friend-links">
+    <div class="title">
+        <a>Friend Links</a>
+    </div>
+    <ul class="list">
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://yyxxqq.github.io/picture/ypl.jpg">
+            <a href="http://sdchr.github.io" target="_blank">杨沛霖</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://yyxxqq.github.io/picture/zjt.jpg">
+            <a href="http://101.236.55.78/" target="_blank">郑钧天</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://yyxxqq.github.io/picture/yww.jpg">
+            <a href="http://www.cnblogs.com/ywwyww" target="_blank">袁无为</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://yyxxqq.github.io/picture/xfz.jpg">
+            <a href="http://www.cnblogs.com/xiefengze1" target="_blank">谢丰泽</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://yyxxqq.github.io/picture/hy.jpg">
+            <a href="http://www.cnblogs.com/yoyoball" target="_blank">洪云</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://yyxxqq.github.io/picture/lyy.jpg">
+            <a href="http://www.cnblogs.com/jefflyy/" target="_blank">梁蕴誉</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://yyxxqq.github.io/picture/dtz.jpg">
+            <a href="http://www.cnblogs.com/RogerDTZ" target="_blank">董廷臻</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://yyxxqq.github.io/picture/wzt.jpg">
+            <a href="https://www.wangzhongtao.com/" target="_blank">王忠涛</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://yyxxqq.github.io/picture/hwc.jpg">
+            <a href="https://www.ebola.pro/" target="_blank">黄文翀</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://raw.githubusercontent.com/yyxxqq/yyxxqq.github.io/master/picture/gzb.jpg">
+            <a href="http://blog.csdn.net/qq_36993218" target="_blank">高泽斌</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://raw.githubusercontent.com/yyxxqq/yyxxqq.github.io/master/picture/xzy.jpg">
+            <a href="https://www.cnblogs.com/Cmd2001" target="_blank">邢泽宇</a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+    </div>
+</div>
+<footer class="cube-footer">
+    
+© 2017 John Doe
+
+<br>
+Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+</footer>
+<!-- inject:script -->
+<script src="/js/script.js"></script>
+<!-- endinject -->
+<div class="cube-loading out"></div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

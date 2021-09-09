@@ -1,0 +1,1894 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="John Doe">
+    
+    
+    
+    
+    
+    
+    <title>illyasviel</title>
+    <!-- inject:style -->
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <!-- endinject -->
+    <style>
+        .cube-loading {
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url('/images/lg/loading.gif') no-repeat center center;
+            background-color: rgba(0,0,0,.7);
+        }
+
+        .cube-loading.out {
+            display: none;
+        }
+
+        .cube-loading:before {
+            display: block;
+            content: 'Loading';
+            position: relative;
+            width: 100%;
+            top: 50%;
+            right: -50%;
+            color: #fff;
+        }
+
+        @media(max-width: 768px) {
+            .cube-loading:before {
+                font-size: 1.2em;
+                transform: translate(-24px,20px);
+                -webkit-transform: translate(-24px,20px);
+                -o-transform: translate(-24px,20px);
+                -ms-transform: translate(-24px,20px);
+            }
+        }
+
+        @media(min-width: 768px) {
+            .cube-loading:before {
+
+            }
+        }
+    </style>
+    
+
+<link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.0.0/styles/monokai-sublime.min.css">
+<div class="cube-body">
+    <nav id="cube-top-memu" class="cube-menu">
+    <ul class="cube-menu-collapse">
+        
+        <li>
+            <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
+            <a href="/">首页</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
+            <a href="/archives">归档</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
+            <a href="/categories">分类</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-tags" aria-hidden="true"></i>
+            <a href="/tags">标签</a>
+        </li>
+        
+        <li>
+            <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
+            <a href="/about-me">关于我</a>
+        </li>
+        
+    </ul>
+</nav>
+<nav class="cube-side-menu" id="cube-side-menu">
+    <ul class="cube-menu-list">
+        
+        <li>
+            <a class="lrc-control">Open Lyrics</a>
+        </li>
+        
+        <li>
+            <a class="scroll-to-top">Top</a>
+        </li>
+    </ul>
+</nav>
+    <header class="cube-header" id="cube-header">
+    <img src=" https://yyxxqq.github.io/picture/无标题.jpg " alt="头部背景图片">
+    
+    <div class="cube-type">
+        <span class="cube-typed-title">yyyxxq</span>
+        <span class="cube-typed-cursor">|</span>
+    </div>
+    
+</header>
+
+    <style>
+        nav.cube-menu:before {
+            content: '';
+            visibility: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 44px;
+        
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
+        
+            z-index: -1;
+            background-image: url('https://raw.githubusercontent.com/yyxxqq/yyxxqq.github.io/master/picture/back.jpg');
+            background-repeat: no-repeat;
+            background-position: center -206px;
+            background-size: cover;
+            background-color: transparent;
+        }
+
+        header.cube-background.cube-header-background {
+            visibility: hidden;
+            background-image: url('https://raw.githubusercontent.com/yyxxqq/yyxxqq.github.io/master/picture/back.jpg');
+            background-position: center -250px;
+        }
+    </style>
+    <header class="cube-background cube-header-background">
+        
+        <div class="cube-type">
+            <span class="cube-typed-title">yyyxxq</span>
+            <span class="cube-typed-cursor">|</span>
+        </div>
+        
+    </header>
+    <div class="load-header-background"></div>
+    <script>
+        (function (window) {
+
+            window.headerModule = {}
+            window.headerModule.image = {
+                width: '3806',
+                height: '2160'
+            }
+
+        })(window)
+    </script>
+    
+    <div class="cube-content">
+        <div class="cube-left">
+            
+<div class="cube-excerpt" id="cube-excerpt-HAOI2016 找相同字符">
+    <header class="cube-excerpt-header">
+        <h1><a href="/2018/07/25/HAOI2016-找相同字符/">HAOI2016 找相同字符</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2018-07-25
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/后缀自动机/" class="cube-excerpt-tag-link">#后缀自动机</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <pre class="highlight"><code class="cpp">#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#define N 1220000
+using namespace std;
+long long fx[N],fy[N];
+long long ans;
+namespace sam{
+    int ch[N][27];
+    int len[N],fail[N],tot=1,last=1,v[N],q[N];
+    int newnode(int x){
+        len[++tot]=x;
+        return tot;
+    } 
+    int extend(int x){
+        int p=last;
+        if(ch[p][x]&amp;&amp;len[ch[p][x]]==len[p]+1)return ch[p][x];
+        int np=newnode(len[p]+1);
+        while(p&amp;&amp;!ch[p][x])ch[p][x]=np,p=fail[p];
+        if(p==0)fail[np]=1;
+        else{
+            int q=ch[p][x];
+            if(len[q]==len[p]+1)fail[np]=q;
+            else{
+                int nq=newnode(len[p]+1);
+                memcpy(ch[nq],ch[q],sizeof(ch[nq]));
+                fail[nq]=fail[q];
+                fail[q]=fail[np]=nq;
+                while(p&amp;&amp;ch[p][x]==q)ch[p][x]=nq,p=fail[p];
+            }
+        }
+        last=np;
+        return last;
+    }
+    int pre(){
+        for(int i=1;i&lt;=tot;i++)v[len[i]]++;
+        for(int i=1;i&lt;=tot;i++)v[i]+=v[i-1];
+        for(int i=1;i&lt;=tot;i++)q[v[len[i]]--]=i;
+    }
+    int get(){
+        for(int i=tot;i&gt;=1;i--){
+            int t=q[i];
+            fx[fail[t]]+=fx[t];
+            fy[fail[t]]+=fy[t];
+        }
+        for(int i=1;i&lt;=tot;i++)ans+=fx[i]*fy[i]*(len[i]-len[fail[i]]);
+    }
+}
+char s[N];
+int main(){
+    int n,x;
+    scanf(&quot;%s&quot;,s+1);
+    n=strlen(s+1);
+    for(int i=1;i&lt;=n;i++)
+        sam::last=sam::extend(s[i]-'a'+1),fx[sam::last]++;
+    sam::last=1;
+    n=strlen(s+1);
+    scanf(&quot;%s&quot;,s+1);
+    for(int i=1;i&lt;=n;i++)sam::last=sam::extend(s[i]-'a'+1),fy[sam::last]++;
+    sam::pre();
+    sam::get();
+    printf(&quot;%lld\n&quot;,ans);
+}
+</code></pre>
+<p><a href="https://loj.ac/problem/2064" target="_blank" rel="noopener">#2064. 「HAOI2016」找相同字符</a></p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/2018/07/25/HAOI2016-找相同字符/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-SDOI2016 诸神眷顾的幻想乡">
+    <header class="cube-excerpt-header">
+        <h1><a href="/2018/07/25/SDOI2016-生成魔咒/">SDOI2016 诸神眷顾的幻想乡</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2018-07-25
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/后缀自动机/" class="cube-excerpt-tag-link">#后缀自动机</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <pre class="highlight"><code class="cpp">#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;map&gt;
+#define N 320000
+using namespace std;
+namespace sam{
+    map&lt;int,int&gt;ch[N];
+    int len[N],fail[N],tot=1,last=1;
+    long long ans;
+    int newnode(int x){
+        len[++tot]=x;
+        return tot;
+    } 
+    int extend(int x){
+        int p=last;
+        int np=newnode(len[p]+1);
+        while(p&amp;&amp;!ch[p][x])ch[p][x]=np,p=fail[p];
+        if(p==0)fail[np]=1;
+        else{
+            int q=ch[p][x];
+            if(len[q]==len[p]+1)fail[np]=q;
+            else{
+                int nq=newnode(len[p]+1);
+                ch[nq]=ch[q];
+                fail[nq]=fail[q];
+                fail[q]=fail[np]=nq;
+                //ans+=len[nq]-len[fail[nq]];
+                while(p&amp;&amp;ch[p][x]==q)ch[p][x]=nq,p=fail[p];
+            }
+        }
+        ans+=len[np]-len[fail[np]];
+        last=np;
+        return last;
+    }
+}
+int main(){
+    int n,x;
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1;i&lt;=n;i++){
+        scanf(&quot;%d&quot;,&amp;x);
+        sam::extend(x);
+        printf(&quot;%lld\n&quot;,sam::ans);
+    }
+}
+</code></pre>
+<p>题目链接<a href="https://loj.ac/problem/2033" target="_blank" rel="noopener">「SDOI2016」生成魔咒</a></p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/2018/07/25/SDOI2016-生成魔咒/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-TJOI2015 弦论">
+    <header class="cube-excerpt-header">
+        <h1><a href="/2018/07/25/TJOI2015-弦论/">TJOI2015 弦论</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2018-07-25
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/后缀自动机/" class="cube-excerpt-tag-link">#后缀自动机</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <pre class="highlight"><code class="cpp">#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#define N 1200000
+using namespace std;
+int n;
+char s[N];
+long long T,K;
+namespace sam{
+    int ch[N][27],fail[N],last,len[N],val[N],tot,v[N],q[N],sum[N];
+    int newnode(int x){
+        len[++tot]=x;
+        return tot;
+    }
+    int extend(int x){
+        int p=last;
+        int np=newnode(len[p]+1);
+        val[np]=1;
+        while(p&amp;&amp;!ch[p][x])ch[p][x]=np,p=fail[p];
+        if(p==0)fail[np]=1;
+        else{
+            int q=ch[p][x];
+            if(len[q]==len[p]+1)fail[np]=q;
+            else{
+                int nq=newnode(len[p]+1);
+                memcpy(ch[nq],ch[q],sizeof(ch[q]));
+                fail[nq]=fail[q];
+                fail[q]=fail[np]=nq;
+                while(ch[p][x]==q)ch[p][x]=nq,p=fail[p];
+            } 
+        }
+        last=np;
+        return last;
+    }
+    int pre(){
+        for(int i=1;i&lt;=tot;i++)v[len[i]]++;
+        for(int i=1;i&lt;=n;i++)v[i]+=v[i-1];
+        for(int i=tot;i;i--)q[v[len[i]]--]=i;
+        for(int i=tot;i;i--){
+            int t=q[i];
+            if(T==1)val[fail[t]]+=val[t];
+            else val[t]=1;
+        }
+        val[1]=0;
+        for(int i=tot;i;i--){
+            int t=q[i];sum[t]=val[t];
+            for(int j=1;j&lt;=26;j++)
+                sum[t]+=sum[ch[t][j]];
+        }
+    }
+    int dfs(int x,int k){
+        if(k&lt;=val[x])return 0;
+        k-=val[x];
+        for(int i=1;i&lt;=26;i++)
+            if(int t=ch[x][i]){
+                if(k&lt;=sum[t]){
+                    putchar(i+'a'-1);
+                    dfs(t,k);
+                    return 0;
+                }
+                k-=sum[t];
+            }
+    }
+}
+int main(){
+    scanf(&quot;%s&quot;,s+1);
+    n=strlen(s+1);
+    scanf(&quot;%lld%lld&quot;,&amp;T,&amp;K);
+    sam::last=sam::tot=1;
+    for(int i=1;i&lt;=n;i++)sam::extend(s[i]-'a'+1);
+    sam::pre();
+    if(K&gt;sam::sum[1])puts(&quot;-1&quot;);
+    else sam::dfs(1,K);
+}
+</code></pre>
+<p>题目链接:<a href="https://loj.ac/problem/2102" target="_blank" rel="noopener">「TJOI2015」弦论</a></p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/2018/07/25/TJOI2015-弦论/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-ZJOI2015 诸神眷顾的幻想乡">
+    <header class="cube-excerpt-header">
+        <h1><a href="/2018/07/25/ZJOI2015-诸神眷顾的幻想乡/">ZJOI2015 诸神眷顾的幻想乡</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2018-07-25
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/广义后缀自动机/" class="cube-excerpt-tag-link">#广义后缀自动机</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <pre class="highlight"><code class="cpp">#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#define N 220000
+#define M 12000000
+using namespace std;
+int tot,Next[N],v[N],h[N],w[N],d[N]; 
+int cnt,len[M],ch[M][15],fail[M],last;
+int add(int x,int y){
+    tot++;
+    Next[tot]=h[x];
+    v[tot]=y;
+    h[x]=tot;
+}
+int newnode(int x){
+    cnt++;
+    len[cnt]=x;
+    return cnt;
+}
+int extend(int p,int x){
+    int np=newnode(len[p]+1);
+    while(p&amp;&amp;!ch[p][x])ch[p][x]=np,p=fail[p];
+    if(p==0)fail[np]=1;
+    else{
+        int q=ch[p][x];
+        if(len[q]==len[p]+1)fail[np]=q;
+        else{
+            int nq=newnode(len[p]+1);
+            memcpy(ch[nq],ch[q],sizeof(ch[q]));
+            fail[nq]=fail[q];
+            fail[np]=fail[q]=nq;
+            while(ch[p][x]==q)ch[p][x]=nq,p=fail[p];
+        }
+    }
+    last=np;
+    return np;
+}
+int dfs(int x,int fa,int now){
+    int k=extend(now,w[x]);
+    for(int i=h[x];i;i=Next[i]){
+        if(v[i]==fa)continue;
+        dfs(v[i],x,k);
+    }
+}
+int main(){
+    int n,c;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;c);
+    for(int i=1;i&lt;=n;i++)scanf(&quot;%d&quot;,&amp;w[i]),w[i]++;
+    len[++cnt]=0,last=1;
+    for(int i=1;i&lt;n;i++){
+        int x,y;
+        scanf(&quot;%d%d&quot;,&amp;x,&amp;y);
+        add(x,y);
+        add(y,x);
+        d[x]++,d[y]++;
+    }
+    for(int i=1;i&lt;=n;i++)if(d[i]==1)dfs(i,0,1);
+    long long ans=0;
+    for(int i=1;i&lt;=cnt;i++)ans+=(0LL+len[i]-len[fail[i]]);
+    printf(&quot;%lld\n&quot;,ans);
+}
+</code></pre>
+<p>题目链接:<a href="https://loj.ac/problem/2137" target="_blank" rel="noopener">「ZJOI2015」诸神眷顾的幻想乡</a></p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/2018/07/25/ZJOI2015-诸神眷顾的幻想乡/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-烁烁的游戏">
+    <header class="cube-excerpt-header">
+        <h1><a href="/2018/07/24/烁烁的游戏/">烁烁的游戏</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2018-07-24
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/NOIP模拟题/" class="cube-excerpt-tag-link">#NOIP模拟题</a>
+                
+                <a href="/tags/线段树/" class="cube-excerpt-tag-link">#线段树</a>
+                
+                <a href="/tags/点分治/" class="cube-excerpt-tag-link">#点分治</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意：</h2>
+<h3 id="背景烁烁很喜欢爬树这吓坏了树上的皮皮鼠"><a class="markdownIt-Anchor" href="#背景烁烁很喜欢爬树这吓坏了树上的皮皮鼠"></a>     背景：烁烁很喜欢爬树，这吓坏了树上的皮皮鼠。</h3>
+<h3 id="题意-给定一颗n个节点的树边权均为1初始树上没有皮皮鼠-烁烁他每次会跳到一个节点u把周围与他距离不超过d的节点各吸引出w只皮皮鼠-皮皮鼠会被烁烁吸引所以会一直待在节点上不动-烁烁很好奇在当前时刻节点u有多少个他的好朋友皮皮鼠"><a class="markdownIt-Anchor" href="#题意-给定一颗n个节点的树边权均为1初始树上没有皮皮鼠-烁烁他每次会跳到一个节点u把周围与他距离不超过d的节点各吸引出w只皮皮鼠-皮皮鼠会被烁烁吸引所以会一直待在节点上不动-烁烁很好奇在当前时刻节点u有多少个他的好朋友皮皮鼠"></a>     题意： 给定一颗n个节点的树，边权均为1，初始树上没有皮皮鼠。烁烁他每次会跳到一个节点u，把周围与他距离不超过d的节点各吸引出w只皮皮鼠。皮皮鼠会被烁烁吸引，所以会一直待在节点上不动。 烁烁很好奇，在当前时刻，节点u有多少个他的好朋友—皮皮鼠。</h3>
+<h3 id="大意"><a class="markdownIt-Anchor" href="#大意"></a>     大意：</h3>
+<h3 id="给一颗n个节点的树边权均为1初始点权均为0m次操作"><a class="markdownIt-Anchor" href="#给一颗n个节点的树边权均为1初始点权均为0m次操作"></a>      给一颗n个节点的树，边权均为1，初始点权均为0，m次操作：</h3>
+<h3 id="q-x询问x的点权"><a class="markdownIt-Anchor" href="#q-x询问x的点权"></a>     Q x：询问x的点权。</h3>
+<h3 id="m-x-d-w将树上与节点x距离不超过d的节点的点权均加上w"><a class="markdownIt-Anchor" href="#m-x-d-w将树上与节点x距离不超过d的节点的点权均加上w"></a>     M x d w：将树上与节点x距离不超过d的节点的点权均加上w。</h3>
+<h2 id="题解"><a class="markdownIt-Anchor" href="#题解"></a> 题解：</h2>
+<h3 id="建出点分树以后容斥用线段树求后缀和即可-虽然每层都扫好暴力但好像复杂度就是对的"><a class="markdownIt-Anchor" href="#建出点分树以后容斥用线段树求后缀和即可-虽然每层都扫好暴力但好像复杂度就是对的"></a>     建出点分树以后容斥用线段树求后缀和即可。（虽然每层都扫好暴力但好像复杂度就是对的）</h3>
+<pre class="highlight"><code class="cpp">#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;algorithm&gt;
+#include&lt;vector&gt;
+#define N 301700
+#define M 5170000
+using namespace std;
+int b[N];
+int tot,cnt,siz[N];
+int h[N],Next[N],v[N],p[N],son[N],ans;
+int root[N],rt[N],ff[N],l[N];
+vector&lt;int&gt;q1[N],q[N];
+namespace seg{
+    int t[M],lx[M],rx[M],tot;
+    int insert(int i,int l,int r,int x,int a){
+        if(i==0)i=++tot;
+        if(l==r){
+            t[i]+=a;
+            return i;
+        }
+        int mid=(l+r)/2;
+        if(lx[i]==0)lx[i]=++tot;
+        if(rx[i]==0)rx[i]=++tot;
+        if(x&lt;=mid)insert(lx[i],l,mid,x,a);
+        else insert(rx[i],mid+1,r,x,a);
+        t[i]=t[lx[i]]+t[rx[i]];
+        return i;
+    }
+    int query(int i,int l,int r,int x,int y){
+        if(t[i]==0)return 0; 
+        if(x&lt;=l&amp;&amp;r&lt;=y)return t[i];
+        if(lx[i]==0)lx[i]=++tot;
+        if(rx[i]==0)rx[i]=++tot;
+        int mid=(l+r)/2;
+        int ans=0;
+        if(mid&gt;=x)ans+=query(lx[i],l,mid,x,y);
+        if(mid&lt;y)ans+=query(rx[i],mid+1,r,x,y);
+        return ans;
+    } 
+}
+void pre(int x,int fa,int l){//vector 
+    b[++cnt]=l;
+    siz[x]=1;
+    for(int i=h[x];i;i=Next[i]){
+        if(v[i]==fa)continue;
+        if(p[v[i]]==1)continue;
+        pre(v[i],x,l+1);
+        siz[x]+=siz[v[i]];
+    }
+}
+int get(int x,int fa,int oo,int l){//重心 //vector
+//节点我不要了 
+    son[x]=0;
+    b[++cnt]=l;//深度 
+    for(int i=h[x];i;i=Next[i]){
+        if(v[i]==fa)continue;
+        if(p[v[i]]==1)continue;
+        get(v[i],x,oo,l+1);
+        son[x]=max(son[x],siz[v[i]]);
+    }
+    son[x]=max(son[x],oo-siz[x]);
+    if(son[ans]&gt;son[x])ans=x;
+    return ans;
+}
+void dfs(int x){
+    cnt=0;
+    pre(x,0,1);
+//  printf(&quot;%d\n&quot;,siz[x]);
+    sort(b+1,b+1+cnt);
+    cnt=unique(b+1,b+1+cnt)-b-1;
+//  printf(&quot;%d\n&quot;,x);
+    rt[x]=seg::insert(0,1,cnt,1,0);
+    for(int j=1;j&lt;=cnt;j++)q[x].push_back(b[j]);
+    p[x]=1;
+    for(int i=h[x];i;i=Next[i]){
+        if(p[v[i]]==1)continue;
+        ans=0;
+        cnt=0;
+        son[0]=0x7fffffff;
+        int oo=get(v[i],x,siz[v[i]],1);
+        ff[oo]=x;
+        l[oo]=v[i];
+        sort(b+1,b+1+cnt);
+        cnt=unique(b+1,b+1+cnt)-b-1;
+        for(int j=1;j&lt;=cnt;j++)q1[oo].push_back(b[j]);
+        root[oo]=seg::insert(0,1,cnt,1,0);
+        dfs(oo);
+    }
+}
+int dep[N],f[N][22];
+int lca(int x,int y){
+    if(dep[x]&lt;dep[y])swap(x,y);
+    for(int i=17;i&gt;=0;i--)if(dep[f[x][i]]&gt;=dep[y])x=f[x][i];
+    if(x==y)return x;
+    for(int i=17;i&gt;=0;i--)if(f[x][i]!=f[y][i])x=f[x][i],y=f[y][i];
+    return f[x][0];
+}
+void dfs1(int x,int fa){
+    dep[x]=dep[fa]+1;
+    f[x][0]=fa;
+    for(int i=1;i&lt;=17;i++)f[x][i]=f[f[x][i-1]][i-1];
+    for(int i=h[x];i;i=Next[i]){
+        if(v[i]==fa)continue;
+//      printf(&quot;%d %d\n&quot;,v[i],x);
+        dfs1(v[i],x);
+    }
+}
+char s[2];
+int dis(int x,int y){
+    return dep[x]+dep[y]-dep[lca(x,y)]*2; 
+}
+int query(int x){//q rt重心 q1 root连接点 
+    int oo=x;
+    int ans=0;
+    while(x){
+        int X=dis(oo,x);X++;
+        int k=X;
+        k=max(k,0);
+        int F=q[x].size();
+        if(k&amp;&amp;k&lt;=F)ans+=seg::query(rt[x],1,q[x].size(),k,q[x].size());
+//      printf(&quot;%d %d %d\n&quot;,x,k,ans);
+        X=dis(oo,l[x]);X++;
+        F=q1[x].size();
+        k=X;
+        k=max(k,0);
+        if(k&amp;&amp;k&lt;=F)ans+=seg::query(root[x],1,q1[x].size(),k,q1[x].size());
+//      printf(&quot;%d %d %d\n&quot;,l[x],k,ans);
+        x=ff[x];
+    }
+    return ans;
+}
+void insert(int x,int d,int w){
+    int o=x;
+    d++;
+    while(x){
+        int dd=dis(x,o);
+    //  for(int i=0;i&lt;q[x].size();i++)printf(&quot;%d &quot;,q[x][i]);
+        int k=d-dd;
+        k=max(k,0);
+        k=min(k,(int)q[x].size());
+    //  printf(&quot;%d %d\n&quot;,x,k);
+        if(k)seg::insert(rt[x],1,q[x].size(),k,w);
+        k=d-dis(l[x],o)-2*dis(ff[x],l[x]);
+        k=max(k,0);
+        k=min(k,(int)q1[x].size());
+        if(k)seg::insert(root[x],1,q1[x].size(),k,-w);
+    //  printf(&quot;%d %d\n&quot;,l[x],k);
+        x=ff[x];
+    }
+//  printf(&quot;\n&quot;);
+}
+void add(int x,int y){
+    tot++;
+    Next[tot]=h[x];
+    v[tot]=y;
+    h[x]=tot;
+}
+int main(){
+    int n,m;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;n;i++){
+        int x,y;
+        scanf(&quot;%d%d&quot;,&amp;x,&amp;y);
+        add(x,y);
+        add(y,x);
+    }
+//  int o=0;
+//  for(int i=1;i&lt;=tot;i++)o=max(o,v[i]);
+//  printf(&quot;%d\n&quot;,o);
+    dfs1(1,0);
+    dfs(1);
+    for(int i=1;i&lt;=m;i++){
+        scanf(&quot;%s&quot;,s+1);
+        if(s[1]=='Q'){
+            int x;
+            scanf(&quot;%d&quot;,&amp;x);
+            printf(&quot;%d\n&quot;,query(x));
+        }
+        else{
+            int x,d,w;
+            scanf(&quot;%d%d%d&quot;,&amp;x,&amp;d,&amp;w);
+            insert(x,d,w);
+        }
+    }
+}
+</code></pre>
+<p>题目链接：<a href="https://www.lydsy.com/JudgeOnline/problem.php?id=4372" target="_blank" rel="noopener"> 烁烁的游戏</a></p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/2018/07/24/烁烁的游戏/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-小奇的博弈">
+    <header class="cube-excerpt-header">
+        <h1><a href="/2018/07/24/小奇的博弈/">小奇的博弈</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2018-07-24
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/NOIP模拟题/" class="cube-excerpt-tag-link">#NOIP模拟题</a>
+                
+                <a href="/tags/博弈论/" class="cube-excerpt-tag-link">#博弈论</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意：</h2>
+<h3 id="这个游戏是在一个1n的棋盘上进行的棋盘上有k个棋子一半是黑色一半是白色-最左边是白色棋子最右边"><a class="markdownIt-Anchor" href="#这个游戏是在一个1n的棋盘上进行的棋盘上有k个棋子一半是黑色一半是白色-最左边是白色棋子最右边"></a>     这个游戏是在一个1*n的棋盘上进行的，棋盘上有k个棋子，一半是黑色，一半是白色。最左边是白色棋子，最右边</h3>
+<h3 id="是黑色棋子相邻的棋子颜色不同"><a class="markdownIt-Anchor" href="#是黑色棋子相邻的棋子颜色不同"></a>     是黑色棋子，相邻的棋子颜色不同。</h3>
+<p><img src="https://www.lydsy.com/JudgeOnline/upload/201604/dd(6).png" alt="img"></p>
+<h3 id="小奇可以移动白色棋子提比可以移动黑色的棋子它们每次操作可以移动1到d个棋子-每当移动某一个棋子时"><a class="markdownIt-Anchor" href="#小奇可以移动白色棋子提比可以移动黑色的棋子它们每次操作可以移动1到d个棋子-每当移动某一个棋子时"></a>     小奇可以移动白色棋子，提比可以移动黑色的棋子，它们每次操作可以移动1到d个棋子。每当移动某一个棋子时，</h3>
+<h3 id="这个棋子不能跨越两边的棋子当然也不可以出界-当谁不可以操作时谁就失败了-小奇和提比轮流操作现在"><a class="markdownIt-Anchor" href="#这个棋子不能跨越两边的棋子当然也不可以出界-当谁不可以操作时谁就失败了-小奇和提比轮流操作现在"></a>    这个棋子不能跨越两边的棋子，当然也不可以出界。当谁不可以操作时，谁就失败了。小奇和提比轮流操作，现在</h3>
+<h3 id="小奇先移动有多少种初始棋子的布局会使它有必胜策略"><a class="markdownIt-Anchor" href="#小奇先移动有多少种初始棋子的布局会使它有必胜策略"></a>     小奇先移动，有多少种初始棋子的布局会使它有必胜策略？</h3>
+<h2 id="题解"><a class="markdownIt-Anchor" href="#题解"></a> 题解：</h2>
+<h3 id="网上已经有诸多题解了其中有一些说这题缺了限制条件但我分析了一下可能不太需要"><a class="markdownIt-Anchor" href="#网上已经有诸多题解了其中有一些说这题缺了限制条件但我分析了一下可能不太需要"></a>     网上已经有诸多题解了，其中有一些说这题缺了限制条件，但我分析了一下，可能不太需要。</h3>
+<h3 id="缺限制条件的原因是当白棋进入必败点后他可以通过加石子的方式来使得黑棋进入必败点"><a class="markdownIt-Anchor" href="#缺限制条件的原因是当白棋进入必败点后他可以通过加石子的方式来使得黑棋进入必败点"></a>     缺限制条件的原因是当白棋进入必败点后，他可以通过加石子的方式来使得黑棋进入必败点。</h3>
+<h3 id="但是白棋能加的棋子是有限的而只要白棋加石子黑旗就能跟进那么就可以还原成之前的局面并且白棋能加的棋子变少了这里是谁先进入必败点谁就输-就是如果一种状态进入到必败点虽然可以继续转移到必败点这里的必败点是与到终点时输的在某种意义上相同的状态但是会消耗一些东西可增加的空间而另一方跟进是无消耗的最后是谁先进入必败点谁就输了"><a class="markdownIt-Anchor" href="#但是白棋能加的棋子是有限的而只要白棋加石子黑旗就能跟进那么就可以还原成之前的局面并且白棋能加的棋子变少了这里是谁先进入必败点谁就输-就是如果一种状态进入到必败点虽然可以继续转移到必败点这里的必败点是与到终点时输的在某种意义上相同的状态但是会消耗一些东西可增加的空间而另一方跟进是无消耗的最后是谁先进入必败点谁就输了"></a>     但是，白棋能加的棋子是有限的，而只要白棋加石子，黑旗就能跟进，那么就可以还原成之前的局面，并且白棋能加的棋子变少了，这里是谁先进入必败点谁就输。就是，如果一种状态进入到必败点，虽然可以继续转移到必败点（这里的必败点是与到终点时输的在某种意义上相同的状态），但是会消耗一些东西（可增加的空间），而另一方跟进是无消耗的，最后是谁先进入必败点谁就输了。</h3>
+<pre class="highlight"><code class="cpp">#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#define P 1000000007 
+using namespace std;
+long long C[12000][120],f[20][12000];
+long long n,k,d;
+int main(){
+    scanf(&quot;%lld%lld%lld&quot;,&amp;n,&amp;k,&amp;d);
+    for(int i=0;i&lt;=n;i++){
+        C[i][0]=1;
+        for(int j=1;j&lt;=i&amp;&amp;j&lt;=k;j++)C[i][j]=(C[i-1][j]+C[i-1][j-1])%P;
+    }
+    f[0][0]=1;
+    for(long long i=0;i&lt;=16;i++)
+        for(long long j=0;j&lt;=n-k;j++)
+            for(long long x=0;x&lt;=n-k;x++){
+                if(x*(d+1)&gt;k/2||x*(d+1)*(1ll&lt;&lt;i)+j&gt;n-k)break;
+                f[i+1][j+x*(d+1)*(1ll&lt;&lt;i)]=(f[i+1][j+x*(d+1)*(1ll&lt;&lt;i)]+f[i][j]*C[k/2][x*(d+1)])%P;
+            }
+    long long ans=C[n][k];
+    for(int i=0;i&lt;=n-k;i++)ans=(ans-f[16][i]*C[n-k-i+k/2][k/2]%P)%P;
+    ans%=P;
+    ans+=P;
+    ans%=P;
+    printf(&quot;%lld\n&quot;,ans);
+}
+</code></pre>
+<p>题目链接：<a href="https://www.lydsy.com/JudgeOnline/problem.php?id=4550" target="_blank" rel="noopener"> 小奇的博弈</a></p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/2018/07/24/小奇的博弈/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-礼物">
+    <header class="cube-excerpt-header">
+        <h1><a href="/2018/07/24/礼物/">礼物</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2018-07-24
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/NOIP模拟题/" class="cube-excerpt-tag-link">#NOIP模拟题</a>
+                
+                <a href="/tags/FFT/" class="cube-excerpt-tag-link">#FFT</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h2 id="题目"><a class="markdownIt-Anchor" href="#题目"></a> 题目：</h2>
+<h3 id="我的室友最近喜欢上了一个可爱的小女生-马上就要到她的生日了他决定买一对情侣手环一个留给自己一个送给她-每个手环上各有-n-个装饰物并且每个装饰物都有一定的亮度-但是在她生日的前一天我的室友突然发现他好像拿错了一个手环而且已经没时间去更换它了他只能使用一种特殊的方法将其中一个手环中所有装饰物的亮度增加一个相同的自然数-c即非负整数-并且由于这个手环是一个圆可以以任意的角度旋转它但是由于上面-装饰物的方向是固定的所以手环不能翻转-需要在经过亮度改造和旋转之后使得两个手环的差异值最小-在将两个手环旋转且装饰物对齐了之后从对齐的某个位置开始逆时针方向对装饰物编号-12n其中-n-为每个手环的装饰物个数第-1-个手环的-i-号位置装饰物亮度为x_i第-2-个手-环的-i-号位置装饰物亮度为y_i两个手环之间的差异值为参见输入输出样例和样例解释-sum_i1nx_i-y_i2麻烦你帮他计算一下进行调整亮度改造和旋转使得两个手环之间的差异值最小-这个最小值是多少呢"><a class="markdownIt-Anchor" href="#我的室友最近喜欢上了一个可爱的小女生-马上就要到她的生日了他决定买一对情侣手环一个留给自己一个送给她-每个手环上各有-n-个装饰物并且每个装饰物都有一定的亮度-但是在她生日的前一天我的室友突然发现他好像拿错了一个手环而且已经没时间去更换它了他只能使用一种特殊的方法将其中一个手环中所有装饰物的亮度增加一个相同的自然数-c即非负整数-并且由于这个手环是一个圆可以以任意的角度旋转它但是由于上面-装饰物的方向是固定的所以手环不能翻转-需要在经过亮度改造和旋转之后使得两个手环的差异值最小-在将两个手环旋转且装饰物对齐了之后从对齐的某个位置开始逆时针方向对装饰物编号-12n其中-n-为每个手环的装饰物个数第-1-个手环的-i-号位置装饰物亮度为x_i第-2-个手-环的-i-号位置装饰物亮度为y_i两个手环之间的差异值为参见输入输出样例和样例解释-sum_i1nx_i-y_i2麻烦你帮他计算一下进行调整亮度改造和旋转使得两个手环之间的差异值最小-这个最小值是多少呢"></a>     我的室友最近喜欢上了一个可爱的小女生。马上就要到她的生日了，他决定买一对情侣手环，一个留给自己，一个送给她。每个手环上各有 n 个装饰物，并且每个装饰物都有一定的亮度。但是在她生日的前一天，我的室友突然发现他好像拿错了一个手环，而且已经没时间去更换它了！他只能使用一种特殊的方法，将其中一个手环中所有装饰物的亮度增加一个相同的自然数 c（即非负整数）。并且由于这个手环是一个圆，可以以任意的角度旋转它，但是由于上面 装饰物的方向是固定的，所以手环不能翻转。需要在经过亮度改造和旋转之后，使得两个手环的差异值最小。在将两个手环旋转且装饰物对齐了之后，从对齐的某个位置开始逆时针方向对装饰物编号 1,2,…,n，其中 n 为每个手环的装饰物个数，第 1 个手环的 i 号位置装饰物亮度为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>x</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">x_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>，第 2 个手 环的 i 号位置装饰物亮度为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>y</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">y_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>，两个手环之间的差异值为(参见输入输出样例和样例解释)： <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>n</mi></mrow></msubsup><mo>(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><msub><mi>y</mi><mi>i</mi></msub><msup><mo>)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\sum_{i=1}^{n}(x_i-y_i)^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.114118em;vertical-align:-0.30001em;"></span><span class="base textstyle uncramped"><span class="mop"><span class="op-symbol small-op mop" style="top:-0.0000050000000000050004em;">∑</span><span class="vlist"><span style="top:0.30001em;margin-left:0em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord scriptstyle cramped"><span class="mord mathit">i</span><span class="mrel">=</span><span class="mord mathrm">1</span></span></span></span><span style="top:-0.364em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord scriptstyle uncramped"><span class="mord mathit">n</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose"><span class="mclose">)</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>麻烦你帮他计算一下，进行调整（亮度改造和旋转），使得两个手环之间的差异值最小， 这个最小值是多少呢？</h3>
+<h2 id="题解"><a class="markdownIt-Anchor" href="#题解"></a> 题解：</h2>
+<h3 id="将x_i-y_i2乘开以后fft暴力就好了"><a class="markdownIt-Anchor" href="#将x_i-y_i2乘开以后fft暴力就好了"></a>     将<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><msub><mi>y</mi><mi>i</mi></msub><msup><mo>)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">(x_i-y_i)^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8141079999999999em;"></span><span class="strut bottom" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mopen">(</span><span class="mord"><span class="mord mathit">x</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">−</span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">y</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:-0.03588em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">i</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mclose"><span class="mclose">)</span><span class="vlist"><span style="top:-0.363em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>乘开以后fft暴力就好了。</h3>
+<pre class="highlight"><code class="cpp">#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;complex&gt;
+#include&lt;math.h&gt;
+#define N 350000
+#define E complex&lt;double&gt;
+using namespace std;
+E a[N],b[N];
+double pi=acos(-1);
+int r[N],n,m,x,L;
+int s,A[N],B[N];
+int DFT(E *a,int f){
+    for(int i=0;i&lt;n;i++)if(r[i]&gt;i)swap(a[i],a[r[i]]);
+    for(int i=1;i&lt;n;i&lt;&lt;=1){
+        E wn(cos(pi/i),f*sin(pi/i));
+        for(int j=0;j&lt;n;j+=i&lt;&lt;1){
+            E w(1,0);
+            for(int k=0;k&lt;i;k++,w*=wn){
+                E tmp=w*a[j+k+i];
+                a[j+k+i]=a[j+k]-tmp;
+                a[j+k]+=tmp;
+            }
+        }
+    }
+} 
+long long bns;
+int pre(){
+    int type;
+    n=s+s+1,m=s+1;L=0;
+    memset(a,0,sizeof(a));
+    memset(b,0,sizeof(b));
+    memset(r,0,sizeof(r));
+    for(int i=0;i&lt;n;i++)a[i]=A[i];
+    for(int i=0;i&lt;m;i++)b[i]=B[i];
+    m=n+m;n=1;
+    while(n&lt;m)n&lt;&lt;=1,L++;
+    for(int i=0;i&lt;n;i++)r[i]=(r[i&gt;&gt;1]&gt;&gt;1)|((i&amp;1)&lt;&lt;(L-1));
+    DFT(a,1);
+    DFT(b,1);
+    for(int i=0;i&lt;n;i++)a[i]=a[i]*b[i];
+    DFT(a,-1);
+    bns=0;
+    for(int i=s+1;i&lt;=s+s+1;i++)bns=max(bns,(long long)floor(a[i].real()/n+0.5));
+//  for(int i=0;i&lt;=m;i++)printf(&quot;%d &quot;,(int)floor(a[i].real()/n+0.5));
+//  printf(&quot;\n&quot;);
+}
+long long sum;
+int main(){
+    int m;
+    scanf(&quot;%d%d&quot;,&amp;s,&amp;m);
+    long long cns=0,ans=1000000000000LL;
+    for(int i=1;i&lt;=s;i++)scanf(&quot;%d&quot;,&amp;B[i]);
+    for(int i=1;i&lt;=s;i++)scanf(&quot;%d&quot;,&amp;A[s-i+1]),A[s+s-i+1]=A[s-i+1];
+    for(int i=1;i&lt;=s;i++)sum+=A[i];
+    pre();
+    for(int i=1;i&lt;=m;i++){
+        cns=0;
+        for(int i=1;i&lt;=s;i++)cns+=A[i]*A[i]+B[i]*B[i];
+        cns-=bns*2;
+        if(cns&lt;ans)ans=cns;
+        else break;
+        for(int i=1;i&lt;=s;i++)B[i]++;
+        bns+=sum;
+    }
+    printf(&quot;%lld\n&quot;,ans);
+}
+</code></pre>
+<p>题目链接: <a href="https://www.lydsy.com/JudgeOnline/problem.php?id=4827" target="_blank" rel="noopener">Hnoi2017 礼物</a></p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/2018/07/24/礼物/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-奇数国">
+    <header class="cube-excerpt-header">
+        <h1><a href="/2018/07/21/奇数国/">奇数国</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2018-07-21
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/NOIP模拟题/" class="cube-excerpt-tag-link">#NOIP模拟题</a>
+                
+                <a href="/tags/线段树/" class="cube-excerpt-tag-link">#线段树</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意：</h2>
+<h3 id="求区间乘积的phi"><a class="markdownIt-Anchor" href="#求区间乘积的phi"></a>     求区间乘积的phi。</h3>
+<h2 id="题解"><a class="markdownIt-Anchor" href="#题解"></a> 题解：</h2>
+<h3 id="用把有哪些质因数压成longlong维护乘积然后乘上逆元变为phi"><a class="markdownIt-Anchor" href="#用把有哪些质因数压成longlong维护乘积然后乘上逆元变为phi"></a>     用把有哪些质因数压成longlong，维护乘积，然后乘上逆元变为phi。</h3>
+<pre class="highlight"><code class="cpp">#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#define P 19961993
+#define N 8200000 
+using namespace std;
+long long prime[1200],p[1200],o[1200],tot,inv[1200];
+struct node{
+    long long x,y;//x为值y为状态 
+};
+long long find(long long x){
+    long long ans;
+    for(long long i=1;i&lt;=60;i++)if(x%prime[i]==0)ans+=1LL&lt;&lt;i;
+    return ans;
+}
+namespace seg{
+    long long a[N],p[N]; 
+    long long build(long long i,long long l,long long r){
+        if(l==r){
+            a[i]=3;
+            p[i]=1&lt;&lt;2;
+            return 0;
+        }
+        long long mid=(l+r)/2;
+        build(i*2,l,mid);
+        build(i*2+1,mid+1,r);
+        a[i]=a[i*2]*a[i*2+1]%P;
+        p[i]=p[i*2]|p[i*2+1];
+    }
+    node merge(node x,node y){
+        node ans;
+        ans.x=x.x*y.x%P;
+        ans.y=x.y|y.y;
+        return ans;
+    }
+    node query(long long i,long long l,long long r,long long x,long long y){
+        node ans;
+        ans.x=1;
+        ans.y=0;
+        if(x&lt;=l&amp;&amp;r&lt;=y){
+            ans.x=a[i];
+            ans.y=p[i];
+            return ans;
+        }
+        long long mid=(l+r)/2;
+        if(mid&gt;=x)ans=merge(ans,query(i*2,l,mid,x,y));
+        if(mid&lt;y)ans=merge(ans,query(i*2+1,mid+1,r,x,y));
+        return ans;
+    }
+    long long insert(long long i,long long l,long long r,long long x,long long A){
+        if(l==r){
+            a[i]=A;
+            p[i]=find(A);
+            return 0;
+        }
+        long long mid=(l+r)/2;
+        if(x&lt;=mid)insert(i*2,l,mid,x,A);
+        else insert(i*2+1,mid+1,r,x,A);
+        a[i]=a[i*2]*a[i*2+1]%P;
+        p[i]=p[i*2]|p[i*2+1];
+    }
+}
+long long power(long long x,long long k){
+    long long ans=1;
+    while(k){
+        if(k&amp;1)(ans*=x)%=P;
+        (x*=x)%=P;
+        k&gt;&gt;=1; 
+    }
+    return ans;
+}
+long long pre(){
+    for(long long i=2;i&lt;300;i++){
+        if(p[i]==0)prime[++tot]=i,inv[tot]=power(i,P-2),o[i]=tot;
+        for(long long j=1;j&lt;=tot&amp;&amp;i*prime[j]&lt;300;j++){
+            p[i*prime[j]]=1;
+            if(i%prime[j]==0)break;
+        }
+    }
+}
+long long cal(node x){
+    long long ans=x.x;
+    for(long long i=1;i&lt;=60;i++){
+        if(x.y&amp;(1LL&lt;&lt;i)){
+            ans=ans*inv[i]%P*(prime[i]-1)%P;
+        }
+    }
+    return ans;
+}
+int main(){
+    pre();
+    long long n;
+    scanf(&quot;%lld&quot;,&amp;n);
+    seg::build(1,1,100000);
+    for(long long i=1;i&lt;=n;i++){
+        long long type;
+        scanf(&quot;%lld&quot;,&amp;type);
+        if(type==0){
+            long long l,r;
+            scanf(&quot;%lld%lld&quot;,&amp;l,&amp;r);
+            printf(&quot;%lld\n&quot;,cal(seg::query(1,1,100000,l,r)));
+        }
+        if(type==1){
+            long long x;
+            long long y;
+            scanf(&quot;%lld%lld&quot;,&amp;x,&amp;y);
+            seg::insert(1,1,100000,x,y);
+        }
+    }
+}
+</code></pre>
+<p>题目链接：<a href="http://xsy.gdgzez.com.cn/JudgeOnline/problem.php?cid=1471&amp;pid=2" target="_blank" rel="noopener">奇数国</a></p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/2018/07/21/奇数国/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-清理雪道">
+    <header class="cube-excerpt-header">
+        <h1><a href="/2018/07/21/清理雪道/">清理雪道</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2018-07-21
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/NOIP模拟题/" class="cube-excerpt-tag-link">#NOIP模拟题</a>
+                
+                <a href="/tags/上下界网络流/" class="cube-excerpt-tag-link">#上下界网络流</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h3 id="上下界网络流的板子题"><a class="markdownIt-Anchor" href="#上下界网络流的板子题"></a>     上下界网络流的板子题。</h3>
+<h3 id="或者费用流也可以"><a class="markdownIt-Anchor" href="#或者费用流也可以"></a>     或者费用流也可以。</h3>
+<pre class="highlight"><code class="cpp">#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+#include&lt;cstdio&gt;
+#define N 22000
+#define INF 100000000
+using namespace std;
+int n,S,T,SS,TT,d[N],cur[N],cnt=1,ans,l[N];
+int Next[N],g[N],q[N],w[N],tot=1,h[N],v[N]; 
+int add(int x,int y,int z){
+    tot++;
+    Next[tot]=h[x];
+    v[tot]=y;
+    w[tot]=z;
+    h[x]=tot;
+    tot++;
+    Next[tot]=h[y];
+    v[tot]=x;
+    w[tot]=0;
+    h[y]=tot;
+}
+bool bfs(){
+    memset(l,0,sizeof(l));
+    l[S]=1;
+    q[1]=S;
+    int head=0,tail=1;
+    while(head&lt;tail){
+        int now=q[++head];
+        for(int i=h[now];i;i=Next[i]){
+            if(l[v[i]]==0&amp;&amp;w[i]){
+                l[v[i]]=l[now]+1;
+                q[++tail]=v[i];
+                if(v[i]==T)return 1;
+            }
+        }
+    } 
+    return 0;
+}
+int dfs(int x,int a){
+    if(x==T||a==0)return a;
+    int ans=0;
+    for(int i=h[x];i;i=Next[i]){
+        if(a==0)break;
+        if(l[v[i]]!=l[x]+1)continue;
+        if(w[i]==0)continue;
+        int flow=dfs(v[i],min(a,w[i]));
+        ans+=flow;
+        a-=flow;
+        w[i]-=flow;
+        w[i^1]+=flow;
+    }
+    return ans;
+}
+void rebuild(){
+    for(int i=h[S];i;i=Next[i])w[i]=w[i^1]=0;
+    for(int i=h[T];i;i=Next[i])w[i]=w[i^1]=0;
+    for(int i=h[TT];i;i=Next[i])
+        if(v[i]==SS){
+            ans+=w[i^1];
+            w[i]=w[i^1]=0;break;
+        }
+    add(S,TT,INF);
+    add(SS,T,INF);
+}
+int main(){
+    scanf(&quot;%d&quot;,&amp;n);S=n+1;T=n+2;SS=n+3;TT=n+4;
+    for(int i=1,m;i&lt;=n;i++){
+        scanf(&quot;%d&quot;,&amp;m);
+        for(int j=1;j&lt;=m;j++){
+            int x;
+            scanf(&quot;%d&quot;,&amp;x);
+            d[i]--;
+            d[x]++;
+            add(i,x,INF);
+        }
+    }
+    for(int i=1;i&lt;=n;i++){
+        if(d[i]&gt;0)add(S,i,d[i]);
+        if(d[i]&lt;0)add(i,T,-d[i]);
+        add(SS,i,INF);
+        add(i,TT,INF);
+    }
+    add(TT,SS,INF);
+    while(bfs())dfs(S,INF);
+    rebuild();
+    while(bfs())ans-=dfs(S,INF);
+    printf(&quot;%d&quot;,ans);
+    return 0;
+}
+</code></pre>
+<p>题目链接：<a href="http://xsy.gdgzez.com.cn/JudgeOnline/problem.php?cid=1471&amp;pid=1" target="_blank" rel="noopener">清理雪道</a></p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/2018/07/21/清理雪道/">Read More</a>
+    </footer>
+</div>
+
+<div class="cube-excerpt" id="cube-excerpt-Division expression">
+    <header class="cube-excerpt-header">
+        <h1><a href="/2018/07/21/除法表达式/">Division expression</a></h1>
+        <div class="cube-excerpt-header-msg">
+            <div class="cube-excerpt-date">
+                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+                2018-07-21
+            </div>
+            <div class="cube-excerpt-tags">
+                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+                
+                <a href="/tags/NOIP模拟题/" class="cube-excerpt-tag-link">#NOIP模拟题</a>
+                
+                <a href="/tags/贪心/" class="cube-excerpt-tag-link">#贪心</a>
+                
+            </div>
+        </div>
+    </header>
+    <article class="cube-excerpt-entry cube-markdown">
+        
+        
+           <h2 id="题目大意"><a class="markdownIt-Anchor" href="#题目大意"></a> 题目大意:</h2>
+<h3 id="给出序列a问加上括号后a_1a_2a_3a_5a_n能否变为整数"><a class="markdownIt-Anchor" href="#给出序列a问加上括号后a_1a_2a_3a_5a_n能否变为整数"></a>     给出序列a，问加上括号后<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub><mi mathvariant="normal">/</mi><msub><mi>a</mi><mn>2</mn></msub><mi mathvariant="normal">/</mi><msub><mi>a</mi><mn>3</mn></msub><mi mathvariant="normal">/</mi><msub><mi>a</mi><mn>5</mn></msub><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">/</mi><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">a_1/a_2/a_3/a_5.../a_n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">a</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">1</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathrm">/</span><span class="mord"><span class="mord mathit">a</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathrm">/</span><span class="mord"><span class="mord mathit">a</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">3</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathrm">/</span><span class="mord"><span class="mord mathit">a</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">5</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">.</span><span class="mord mathrm">/</span><span class="mord"><span class="mord mathit">a</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathit">n</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>能否变为整数。</h3>
+<h3 id="题解"><a class="markdownIt-Anchor" href="#题解"></a> 题解：</h3>
+<h3 id="发现a_2一定会是分母而其他都可以为分子贪心即可"><a class="markdownIt-Anchor" href="#发现a_2一定会是分母而其他都可以为分子贪心即可"></a>     发现<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>a</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">a_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="base textstyle uncramped"><span class="mord"><span class="mord mathit">a</span><span class="vlist"><span style="top:0.15em;margin-right:0.05em;margin-left:0em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle cramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span></span>一定会是分母，而其他都可以为分子，贪心即可。</h3>
+<pre class="highlight"><code class="cpp">#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+using namespace std;
+int a[120000],n,x;
+int gcd(int x,int y){
+    if(x%y==0)return y;
+    return gcd(y,x%y);
+}
+int solve(){
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1;i&lt;=n;i++)scanf(&quot;%d&quot;,&amp;a[i]);
+    x=a[2];
+    for(int i=1;i&lt;=n;i++){
+        if(i==2)continue;
+        x=x/gcd(x,a[i]);
+        if(x==1)return 1;
+    }
+    return 0;
+} 
+int main(){
+    int t;
+    scanf(&quot;%d&quot;,&amp;t);
+    while(t--){
+        if(solve())printf(&quot;YES\n&quot;);
+        else printf(&quot;NO\n&quot;);
+    }
+}
+
+</code></pre>
+<p>题目链接：<a href="http://xsy.gdgzez.com.cn/JudgeOnline/problem.php?cid=1471&amp;pid=0" target="_blank" rel="noopener">Division expression</a></p>
+
+        
+    </article>
+    <footer class="cube-excerpt-footer">
+        <a class="cube-excerpt-more" href="/2018/07/21/除法表达式/">Read More</a>
+    </footer>
+</div>
+
+
+
+<ul class="cube-pagination cube-pagination-9">
+    
+    <li class="cube-pagination-prev">
+        <a href="/">« Prev</a>
+    </li>
+    
+    
+        
+            
+                
+                <li class="cube-pagination-index">
+                    <a href="/">1</a>
+                </li>
+                
+            
+                
+                <li class="cube-pagination-index disabled">
+                    <span>2</span>
+                </li>
+                
+            
+                
+                <li class="cube-pagination-index">
+                    <a href="/page/3">3</a>
+                </li>
+                
+            
+                
+                <li class="cube-pagination-index">
+                    <a href="/page/4">4</a>
+                </li>
+                
+            
+                <li class="cube-pagination-ellipses">
+                    <span>...</span>
+                </li>
+                <li class="cube-pagination-index">
+                    <a href="/page/7">7</a>
+                </li>
+        
+    
+
+    
+    <li class="cube-pagination-next">
+        <a href="/page/3/">Next »</a>
+    </li>
+    
+</ul>
+
+<!--其他组件后续添加-->
+        </div>
+        <div class="cube-right">
+            
+
+<div class="cube-search cube-sidebar" id="cube-search">
+    <div class="search-container">
+        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
+        <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
+    </div>
+    <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
+</div>
+<script>
+    (function (window) {
+        'use strict';
+        window.searchModule = {}
+        window.searchModule.JSONUrl = '/content.json'
+        window.searchModule.rootUrl = '/'
+    })(window)
+</script>
+<div class="cube-search-form">
+    <div class="cube-search-control">
+        <input type="text" placeholder="Search" class="search-input">
+        <a class="close-button">
+            <i class="cube-icon cube-close" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="cube-search-result"></div>
+</div>
+
+
+<div class="cube-author cube-sidebar" id="cube-author">
+    
+    
+    <span>John Doe</span>
+    
+    
+    <div class="count">
+        <a class="count articles"><span>62</span>Article</a>
+        <a class="count tags"><span>57</span>Tags</a>
+        <a class="count categories"><span>2</span>Categories</a>
+    </div>
+</div>
+
+
+
+<div class="cube-music cube-sidebar" id="cube-music">
+    <div class="cube-player aplayer" id="cube-player"></div>
+</div>
+<script>
+    (function (window) {
+        window.musicModule = {}
+        window.musicModule.musicConfig = '{"narrow":false,"autoplay":false,"showlrc":3,"theme":"#b7daff","mutex":true,"mode":"circulation","preload":"auto","listmaxheight":"513px","music":[{"title":"彼方 - 星尘","author":"乌龟sui","url":"https://yyxxqq.github.io/music/%E6%98%9F%E5%B0%98%20-%20%E3%80%90%E6%98%9F%E5%B0%98%E3%80%91%E5%BD%BC%E6%96%B9.mp3","lrc":"https://yyxxqq.github.io/music/%E3%80%90%E6%98%9F%E5%B0%98%E3%80%91%E5%BD%BC%E6%96%B9-%E6%98%9F%E5%B0%98.lrc","pic":"http://yoursite.com/images/music/undefined"},{"title":"fhána - ワンダーステラ","author":"fhána","url":"https://yyxxqq.github.io/music/fh%C3%A1na%20-%20%E3%83%AF%E3%83%B3%E3%83%80%E3%83%BC%E3%82%B9%E3%83%86%E3%83%A9.mp3","pic":"http://yoursite.com/images/music/undefined"},{"title":"中島美嘉 - 僕が死のうと思ったのは","author":"中島美嘉","url":"https://yyxxqq.github.io/music/%E4%B8%AD%E5%B3%B6%E7%BE%8E%E5%98%89%20-%20%E5%83%95%E3%81%8C%E6%AD%BB%E3%81%AE%E3%81%86%E3%81%A8%E6%80%9D%E3%81%A3%E3%81%9F%E3%81%AE%E3%81%AF.mp3","lrc":"https://yyxxqq.github.io/music/%E5%83%95%E3%81%8C%E6%AD%BB%E3%81%AE%E3%81%86%E3%81%A8%E6%80%9D%E3%81%A3%E3%81%9F%E3%81%AE%E3%81%AF-%E4%B8%AD%E5%B3%B6%E7%BE%8E%E5%98%89.lrc","pic":"http://yoursite.com/images/music/undefined"}]}'
+        window.musicModule.lrcConfig = {
+            open: 'Open Lyrics',
+            close: 'Close Lyrics'
+        }
+    })(window)
+</script>
+
+
+
+<div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
+    <div class="title">
+        <a>Recent Posts</a>
+    </div>
+    <ul class="list">
+        
+        
+        <li>
+            <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
+            
+            <div class="normal">
+                <p class="index first">
+                    <span>1</span>
+                </p>
+                <p class="title">
+                    <a href="/2018/08/01/暑假计划/" title="2018暑假计划">2018暑假计划</a>
+                </p>
+            </div>
+            
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>2</span>
+                </p>
+                <p class="title">
+                    <a href="/2018/08/01/YNOI2017-由乃的OJ/" title="YNOI2017 由乃的OJ">YNOI2017 由乃的OJ</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>3</span>
+                </p>
+                <p class="title">
+                    <a href="/2018/08/01/SCOI2015-选数/" title="CQOI2015 选数">CQOI2015 选数</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>4</span>
+                </p>
+                <p class="title">
+                    <a href="/2018/08/01/JLOI2015-战争调度/" title="JLOI2015 战争调度">JLOI2015 战争调度</a>
+                </p>
+            </div>
+        </li>
+        
+        
+        
+        <li>
+            <div class="normal">
+                <p class="index">
+                    <span>5</span>
+                </p>
+                <p class="title">
+                    <a href="/2018/07/31/pyh的求和/" title="pyh的求和">pyh的求和</a>
+                </p>
+            </div>
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+
+<div class="cube-categories cube-sidebar" id="cube-categories">
+    <div class="title">
+        <a href="/categories">Categories</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/OI/">#OI</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/categories/人生/">#人生</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
+    <div class="title">
+        <a href="/tags">Tagcloud</a>
+    </div>
+    <div class="cube-boxs">
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/高斯消元/">#高斯消元</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/NOIP模拟题/">#NOIP模拟题</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/BZOJ/">#BZOJ</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/分数规划/">#分数规划</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/树链剖分/">#树链剖分</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/凸包/">#凸包</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/后缀自动机/">#后缀自动机</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/线性基/">#线性基</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/树形DP/">#树形DP</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/倍增/">#倍增</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/矩阵快速幂/">#矩阵快速幂</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/特征方程/">#特征方程</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/hash/">#hash</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/二分/">#二分</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/组合数学/">#组合数学</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/计数/">#计数</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/好题/">#好题</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/NOI/">#NOI</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/SPFA/">#SPFA</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/状压DP/">#状压DP</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/最小表示法/">#最小表示法</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/斜率优化/">#斜率优化</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/CDQ分治/">#CDQ分治</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/线段树/">#线段树</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/KMP/">#KMP</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/卡常/">#卡常</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/点分治/">#点分治</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/贪心/">#贪心</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/模拟/">#模拟</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/中国剩余定理/">#中国剩余定理</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/莫比乌斯反演/">#莫比乌斯反演</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/杜教筛/">#杜教筛</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/可持久化并查集/">#可持久化并查集</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/可持久化线段树/">#可持久化线段树</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/广义后缀自动机/">#广义后缀自动机</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/分块/">#分块</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/构造/">#构造</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/splay/">#splay</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/博弈论/">#博弈论</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/概率与期望/">#概率与期望</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/记忆化搜索/">#记忆化搜索</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/哈希/">#哈希</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/费用流/">#费用流</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/数学/">#数学</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/dp优化/">#dp优化</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/期望/">#期望</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/计划表/">#计划表</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/概率/">#概率</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/积性函数/">#积性函数</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/最小生成树/">#最小生成树</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/搜索/">#搜索</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/上下界网络流/">#上下界网络流</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/AC自动机/">#AC自动机</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/整体二分/">#整体二分</a>
+        </div>
+        
+        
+        <div class="cube-box-bg ">
+            <a href="/tags/FFT/">#FFT</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/树状数组/">#树状数组</a>
+        </div>
+        
+        
+        <div class="cube-box ">
+            <a href="/tags/后缀数组/">#后缀数组</a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="cube-links cube-sidebar" id="cube-links">
+    <div class="title">
+        <a>Links</a>
+    </div>
+    <ul class="list">
+        
+        <li>
+            
+            <a href="" target="_blank">yxq的QQ:1922610598</a>
+        </li>
+        
+        <li>
+            
+            
+            <img src="http://cube-1252774894.cosgz.myqcloud.com/links/GitHub.png">
+            
+            <a href="https://www.bilibili.com/bangumi/media/md2575" target="_blank">伊莉雅天下第一可爱！</a>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+<div class="cube-friend-links cube-sidebar" id="cube-friend-links">
+    <div class="title">
+        <a>Friend Links</a>
+    </div>
+    <ul class="list">
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://yyxxqq.github.io/picture/ypl.jpg">
+            <a href="http://sdchr.github.io" target="_blank">杨沛霖</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://yyxxqq.github.io/picture/zjt.jpg">
+            <a href="http://101.236.55.78/" target="_blank">郑钧天</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://yyxxqq.github.io/picture/yww.jpg">
+            <a href="http://www.cnblogs.com/ywwyww" target="_blank">袁无为</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://yyxxqq.github.io/picture/xfz.jpg">
+            <a href="http://www.cnblogs.com/xiefengze1" target="_blank">谢丰泽</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://yyxxqq.github.io/picture/hy.jpg">
+            <a href="http://www.cnblogs.com/yoyoball" target="_blank">洪云</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://yyxxqq.github.io/picture/lyy.jpg">
+            <a href="http://www.cnblogs.com/jefflyy/" target="_blank">梁蕴誉</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://yyxxqq.github.io/picture/dtz.jpg">
+            <a href="http://www.cnblogs.com/RogerDTZ" target="_blank">董廷臻</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://yyxxqq.github.io/picture/wzt.jpg">
+            <a href="https://www.wangzhongtao.com/" target="_blank">王忠涛</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://yyxxqq.github.io/picture/hwc.jpg">
+            <a href="https://www.ebola.pro/" target="_blank">黄文翀</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://raw.githubusercontent.com/yyxxqq/yyxxqq.github.io/master/picture/gzb.jpg">
+            <a href="http://blog.csdn.net/qq_36993218" target="_blank">高泽斌</a>
+        </li>
+        
+        <li>
+            <!-- TODO change avatar.png to friend.png-->
+            <img src="https://raw.githubusercontent.com/yyxxqq/yyxxqq.github.io/master/picture/xzy.jpg">
+            <a href="https://www.cnblogs.com/Cmd2001" target="_blank">邢泽宇</a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+    </div>
+</div>
+<footer class="cube-footer">
+    
+© 2017 John Doe
+
+<br>
+Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
+</footer>
+<!-- inject:script -->
+<script src="/js/script.js"></script>
+<!-- endinject -->
+<div class="cube-loading out"></div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
