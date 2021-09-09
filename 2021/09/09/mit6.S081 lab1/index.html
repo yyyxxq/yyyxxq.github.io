@@ -10,7 +10,7 @@
     
     
     
-    <title>illyasviel</title>
+    <title>mit6.S081 lab1 | illyasviel</title>
     <!-- inject:style -->
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <!-- endinject -->
@@ -163,27 +163,26 @@
     
     <div class="cube-content">
         <div class="cube-left">
-            
-<div class="cube-excerpt" id="cube-excerpt-mit6.S081 lab1">
-    <header class="cube-excerpt-header">
-        <h1><a href="/2021/09/09/mit6.S081 lab1/">mit6.S081 lab1</a></h1>
-        <div class="cube-excerpt-header-msg">
-            <div class="cube-excerpt-date">
-                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
-                2021-09-09
-            </div>
-            <div class="cube-excerpt-tags">
-                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
-                
-                <a href="/tags/操作系统/" class="cube-excerpt-tag-link">#操作系统</a>
-                
-            </div>
+            <div class="cube-article">
+    <h1 class="title">mit6.S081 lab1</h1>
+    
+    <div class="cube-article-header">
+        <div class="cube-article-date">
+            <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
+            <!-- moment.js对象 -->
+            2021-09-09
         </div>
-    </header>
-    <article class="cube-excerpt-entry cube-markdown">
+        <div class="cube-article-tags">
+    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
+    
+    <a href="/tags/操作系统/">#操作系统</a>
+    
+</div>
+    </div>
+    
+    <div class="cube-article-content cube-markdown">
         
-        
-           <h1 id="lab-xv6-and-unix-utilities"><a class="markdownIt-Anchor" href="#lab-xv6-and-unix-utilities"></a> Lab: Xv6 and Unix utilities</h1>
+        <h1 id="lab-xv6-and-unix-utilities"><a class="markdownIt-Anchor" href="#lab-xv6-and-unix-utilities"></a> Lab: Xv6 and Unix utilities</h1>
 <h2 id="sleep-easy"><a class="markdownIt-Anchor" href="#sleep-easy"></a> sleep (<a href="https://pdos.csail.mit.edu/6.828/2020/labs/guidance.html" target="_blank" rel="noopener">easy</a>)</h2>
 <pre class="highlight"><code class="cpp">#include &quot;kernel/types.h&quot;
 #include &quot;kernel/stat.h&quot;
@@ -388,84 +387,28 @@ int main(int argc,char *argv[]){
 <div style="page-break-after: always;"></div>
 <p><img src="C:%5CUsers%5CINTEL%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210901233354513.png" alt="image-20210901233354513"></p>
 
-        
-    </article>
-    <footer class="cube-excerpt-footer">
-        <a class="cube-excerpt-more" href="/2021/09/09/mit6.S081 lab1/">Read More</a>
-    </footer>
+    </div>
 </div>
 
-<div class="cube-excerpt" id="cube-excerpt-mit6.S081 lab2">
-    <header class="cube-excerpt-header">
-        <h1><a href="/2021/09/09/mit6.S081 lab2/">mit6.S081 lab2</a></h1>
-        <div class="cube-excerpt-header-msg">
-            <div class="cube-excerpt-date">
-                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
-                2021-09-09
-            </div>
-            <div class="cube-excerpt-tags">
-                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
-                
-                <a href="/tags/操作系统/" class="cube-excerpt-tag-link">#操作系统</a>
-                
-            </div>
-        </div>
-    </header>
-    <article class="cube-excerpt-entry cube-markdown">
+<div class="cube-article-nav">
+    <ul>
         
         
-           <h1 id="lab-syscall-system-calls"><a class="markdownIt-Anchor" href="#lab-syscall-system-calls"></a> Lab syscall: System calls</h1>
-<h2 id="system-call-tracing-moderate"><a class="markdownIt-Anchor" href="#system-call-tracing-moderate"></a> System call tracing (<a href="https://pdos.csail.mit.edu/6.828/2020/labs/guidance.html" target="_blank" rel="noopener">moderate</a>)</h2>
-<p>syscall流程：</p>
-<p>调用system call(用户态)-&gt;进入syscall.c作为跳板(内核态)-&gt;跳入具体syscall函数(内核态)</p>
-<p>内核态中存在myproc()可以返回一个struct proc中贮存这调用system call的进程的信息。</p>
-<h2 id="sysinfo-moderate"><a class="markdownIt-Anchor" href="#sysinfo-moderate"></a> Sysinfo (<a href="https://pdos.csail.mit.edu/6.828/2020/labs/guidance.html" target="_blank" rel="noopener">moderate</a>)</h2>
-<h3 id="kernelkallocc"><a class="markdownIt-Anchor" href="#kernelkallocc"></a> kernel/kalloc.c</h3>
-<p>内存分配策略：</p>
-<p>4kb为一页</p>
-<p>空闲内存的页头存在一个指针指向下一个空闲内存的页头，将内存串起来。</p>
-<h3 id="kernelprocc"><a class="markdownIt-Anchor" href="#kernelprocc"></a> kernel/proc.c</h3>
-<p>进程分配策略：</p>
-<p>累计进程号+1（保证了所有线程pid独立）</p>
-<p>遍历所有进程：</p>
-<p>找到第一个空闲的讲起返回</p>
-<h3 id="copyout"><a class="markdownIt-Anchor" href="#copyout"></a> copyout</h3>
-<p>用户态和内核态用的内存地址都是独立的</p>
-<p>需要用pagetable和copyoout来获取真实的地址来传入传出数据</p>
-
+        <li class="next">
+            <a href="/2021/09/09/mit6.S081 lab2/">
+                mit6.S081 lab2
+                <i class="cube-icon cube-next" aria-hidden="true"></i>
+            </a>
+        </li>
         
-    </article>
-    <footer class="cube-excerpt-footer">
-        <a class="cube-excerpt-more" href="/2021/09/09/mit6.S081 lab2/">Read More</a>
-    </footer>
+    </ul>
 </div>
 
 
+<!-- TODO 根据theme.comment的内容进行入口选择 -->
 
-<ul class="cube-pagination cube-pagination-6">
-    
-    <li class="cube-pagination-prev disabled">
-        <span>« Prev</span>
-    </li>
-    
-    
-        
-            
-            <li class="cube-pagination-index disabled">
-                <span>1</span>
-            </li>
-            
-        
-    
 
-    
-    <li class="cube-pagination-next disabled">
-        <span>Next »</span>
-    </li>
-    
-</ul>
 
-<!--其他组件后续添加-->
         </div>
         <div class="cube-right">
             
@@ -600,7 +543,7 @@ int main(int argc,char *argv[]){
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/构造/">#构造</a>
         </div>
         

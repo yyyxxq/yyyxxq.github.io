@@ -10,7 +10,7 @@
     
     
     
-    <title>illyasviel</title>
+    <title>Categories: 计算机科学与技术 | illyasviel</title>
     <!-- inject:style -->
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <!-- endinject -->
@@ -163,309 +163,33 @@
     
     <div class="cube-content">
         <div class="cube-left">
+            <style>
+    @media(max-width: 768px) {
+        body {
+            background-color: #fff!important;
+        }
+    }
+</style>
+<div class="cube-archives">
+    
+    <div class="cube-archive" style="margin-top: 0;">
+        <h1 class="title">计算机科学与技术</h1>
+        
+        <ul class="posts">
             
-<div class="cube-excerpt" id="cube-excerpt-mit6.S081 lab1">
-    <header class="cube-excerpt-header">
-        <h1><a href="/2021/09/09/mit6.S081 lab1/">mit6.S081 lab1</a></h1>
-        <div class="cube-excerpt-header-msg">
-            <div class="cube-excerpt-date">
-                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
-                2021-09-09
-            </div>
-            <div class="cube-excerpt-tags">
-                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
-                
-                <a href="/tags/操作系统/" class="cube-excerpt-tag-link">#操作系统</a>
-                
-            </div>
-        </div>
-    </header>
-    <article class="cube-excerpt-entry cube-markdown">
-        
-        
-           <h1 id="lab-xv6-and-unix-utilities"><a class="markdownIt-Anchor" href="#lab-xv6-and-unix-utilities"></a> Lab: Xv6 and Unix utilities</h1>
-<h2 id="sleep-easy"><a class="markdownIt-Anchor" href="#sleep-easy"></a> sleep (<a href="https://pdos.csail.mit.edu/6.828/2020/labs/guidance.html" target="_blank" rel="noopener">easy</a>)</h2>
-<pre class="highlight"><code class="cpp">#include &quot;kernel/types.h&quot;
-#include &quot;kernel/stat.h&quot;
-#include &quot;user/user.h&quot;
-int main(int argc,char *argv[]){
-//	printf(&quot;%d\n&quot;,argc);
-//	for(int i=0;i&lt;argc;i++)printf(&quot;%s\n&quot;,argv[i]);
-	if(argc!=2){
-		printf(&quot;少了个描述时间的数字\n&quot;);
-	}else{
-		sleep(atoi(argv[1]));
-	}
-	exit(0);
-}
-</code></pre>
-<h2 id="pingpong-easy"><a class="markdownIt-Anchor" href="#pingpong-easy"></a> pingpong (<a href="https://pdos.csail.mit.edu/6.828/2020/labs/guidance.html" target="_blank" rel="noopener">easy</a>)</h2>
-<pre class="highlight"><code class="cpp">#include &quot;kernel/types.h&quot;
-#include &quot;user/user.h&quot;
-int main(){
-	int pid;
-	int p[2];
-	pipe(p);
-	pid=fork();
-	if(pid==0){
-		printf(&quot;%d: received ping\n&quot;,getpid());
-		close(p[0]);
-		write(p[1],&quot;ping-pong&quot;,9);
-	}else{
-		close(p[1]);
-		char a[10];
-		read(p[0],a,9);
-	//	printf(&quot;%s\n&quot;,a);
-		printf(&quot;%d: received pong\n&quot;,getpid());
-	}
-	exit(0);
-} 
-</code></pre>
-<div style="page-break-after: always;"></div>
-<h2 id="primes-moderatehard"><a class="markdownIt-Anchor" href="#primes-moderatehard"></a> primes (<a href="https://pdos.csail.mit.edu/6.828/2020/labs/guidance.html" target="_blank" rel="noopener">moderate</a>)/(<a href="https://pdos.csail.mit.edu/6.828/2020/labs/guidance.html" target="_blank" rel="noopener">hard</a>)</h2>
-<pre class="highlight"><code class="cpp">#include &quot;kernel/types.h&quot;
-find (moderate)#include &quot;user/user.h&quot;
-int flag=0,prime=0;
-int from[2],to[2],p[2];
-int receive(int x);
-int transport(int x);
-int receive(int x){
-	if(x==-1)exit(0);
-	printf(&quot;prime %d\n&quot;,x);
-	flag=1;
-	prime=x;
-	pipe(p);
-	int pid=fork();
-	if(pid==0){
-		flag=0;
-		from[0]=p[0];
-		from[1]=p[1];
-		close(from[1]);
-		while(x!=-1){
-			read(from[0],&amp;x,4);
-			transport(x);
-		}
-		close(from[0]);
-		wait(0);
-		exit(0);
-	}else{
-		to[0]=p[0];
-		to[1]=p[1];
-		close(to[0]);
-	}
-	return 0;
-}
-int transport(int x){
-	if(flag==0)receive(x);
-	else{
-		if(x%prime!=0||prime==0)write(to[1],&amp;x,4);
-	}
-	return 0;
-}
-int main(){
-	for(int i=2;i&lt;=35;i++)transport(i);
-	transport(-1);
-	close(to[1]);
-	wait(0);
-	exit(0);
-}
-</code></pre>
-<div style="page-break-after: always;"></div>
-<h2 id="find-moderate"><a class="markdownIt-Anchor" href="#find-moderate"></a> find (<a href="https://pdos.csail.mit.edu/6.828/2020/labs/guidance.html" target="_blank" rel="noopener">moderate</a>)</h2>
-<pre class="highlight"><code class="cpp">#include &quot;kernel/types.h&quot;
-#include &quot;kernel/stat.h&quot;
-#include &quot;user/user.h&quot;
-#include &quot;kernel/fs.h&quot;
-char* fmtname(char *path){
-	static char buf[DIRSIZ+1];
-	char *p;
-	// Find first character after last slash.
-	for(p=path+strlen(path); p &gt;= path &amp;&amp; *p != '/'; p--);
-	p++;
-	// Return blank-padded name.
-	if(strlen(p) &gt;= DIRSIZ)
-	return p;
-	memmove(buf, p, strlen(p));
-	memset(buf+strlen(p), 0, DIRSIZ-strlen(p));
-	return buf;
-}
-void find(char *path,char *name){
-	char buf[512], *p;
-	int fd;
-	struct dirent de;
-	struct stat st;
-
-	if((fd = open(path, 0)) &lt; 0){
-		fprintf(2, &quot;find: cannot open %s\n&quot;, path);
-		return;
-	}
-
-	if(fstat(fd, &amp;st) &lt; 0){
-		fprintf(2, &quot;find: cannot stat %s\n&quot;, path);
-		close(fd);
-		return;
-	}
-
-	strcpy(buf, path);
-	p = buf+strlen(buf);
-	*p++ = '/';
-	while(read(fd, &amp;de, sizeof(de)) == sizeof(de)){
-		if(de.inum == 0)
-		continue;
-		memmove(p, de.name, DIRSIZ);
-		p[DIRSIZ] = 0;
-		if(stat(buf, &amp;st) &lt; 0){
-			printf(&quot;ls: cannot stat %s\n&quot;, buf);
-			continue;
-		}
-		if(st.type==2){
-			if(strcmp(fmtname(buf),name)==0)printf(&quot;%s\n&quot;,buf);
-		}
-		if(st.type==1){
-			if(strcmp(fmtname(buf),&quot;.&quot;)!=0&amp;&amp;strcmp(fmtname(buf),&quot;..&quot;)!=0)find(buf,name);
-		}
-	//  printf(&quot;%s %d %d %d\n&quot;, buf, st.type, st.ino, st.size);
-	}
-	close(fd);
-}
-int main(int argc, char *argv[]){
-	find(argv[1],argv[2]);
-	exit(0);
-}
-</code></pre>
-<div style="page-break-after: always;"></div>
-<h2 id="xargs-moderate"><a class="markdownIt-Anchor" href="#xargs-moderate"></a> xargs (<a href="https://pdos.csail.mit.edu/6.828/2020/labs/guidance.html" target="_blank" rel="noopener">moderate</a>)</h2>
-<pre class="highlight"><code class="cpp">#include &quot;kernel/types.h&quot;
-#include &quot;user/user.h&quot;
-char a[120][120];
-char *b[120];
-int c[120];
-int row,column;
-char tmp;
-int solve(char s[],int argc,char *argv[]){
-	int n=strlen(s);
-	int A=0;
-	for(int i=1;i&lt;argc;i++){
-		b[A]=argv[i];
-		A++;
-	}
-	b[A]=&amp;s[0];
-	A++;
-	for(int i=0;i&lt;n;i++){
-		if(s[i]==' '){
-			s[i]=0;
-			b[A]=&amp;s[i+1];
-			A++;
-		}
-	}
-	b[A]=0;
-	//for(int i=0;i&lt;A;i++)printf(&quot;AA::%s\n&quot;,b[i]);
-	exec(argv[1],b);
-	exit(0);
-}
-int main(int argc,char *argv[]){
-	while(read(0,&amp;tmp,1)){
-		if(tmp=='\n'){
-			row++;
-			column=0;
-		//	a[row]=new char[120];
-			continue;
-		}
-		a[row][column++]=tmp;
-	}
-	for(int i=0;i&lt;row;i++){
-		int pid=fork();
-		if(pid==0){
-			solve(a[i],argc,argv);
-			exit(0);
-		}
-	}
-//	for(int i=0;i&lt;row;i++)wait(0);
-	while(wait(0)!=-1);
-	exit(0);
-}
-</code></pre>
-<div style="page-break-after: always;"></div>
-<p><img src="C:%5CUsers%5CINTEL%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210901233354513.png" alt="image-20210901233354513"></p>
-
-        
-    </article>
-    <footer class="cube-excerpt-footer">
-        <a class="cube-excerpt-more" href="/2021/09/09/mit6.S081 lab1/">Read More</a>
-    </footer>
-</div>
-
-<div class="cube-excerpt" id="cube-excerpt-mit6.S081 lab2">
-    <header class="cube-excerpt-header">
-        <h1><a href="/2021/09/09/mit6.S081 lab2/">mit6.S081 lab2</a></h1>
-        <div class="cube-excerpt-header-msg">
-            <div class="cube-excerpt-date">
-                <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
-                2021-09-09
-            </div>
-            <div class="cube-excerpt-tags">
-                <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
-                
-                <a href="/tags/操作系统/" class="cube-excerpt-tag-link">#操作系统</a>
-                
-            </div>
-        </div>
-    </header>
-    <article class="cube-excerpt-entry cube-markdown">
-        
-        
-           <h1 id="lab-syscall-system-calls"><a class="markdownIt-Anchor" href="#lab-syscall-system-calls"></a> Lab syscall: System calls</h1>
-<h2 id="system-call-tracing-moderate"><a class="markdownIt-Anchor" href="#system-call-tracing-moderate"></a> System call tracing (<a href="https://pdos.csail.mit.edu/6.828/2020/labs/guidance.html" target="_blank" rel="noopener">moderate</a>)</h2>
-<p>syscall流程：</p>
-<p>调用system call(用户态)-&gt;进入syscall.c作为跳板(内核态)-&gt;跳入具体syscall函数(内核态)</p>
-<p>内核态中存在myproc()可以返回一个struct proc中贮存这调用system call的进程的信息。</p>
-<h2 id="sysinfo-moderate"><a class="markdownIt-Anchor" href="#sysinfo-moderate"></a> Sysinfo (<a href="https://pdos.csail.mit.edu/6.828/2020/labs/guidance.html" target="_blank" rel="noopener">moderate</a>)</h2>
-<h3 id="kernelkallocc"><a class="markdownIt-Anchor" href="#kernelkallocc"></a> kernel/kalloc.c</h3>
-<p>内存分配策略：</p>
-<p>4kb为一页</p>
-<p>空闲内存的页头存在一个指针指向下一个空闲内存的页头，将内存串起来。</p>
-<h3 id="kernelprocc"><a class="markdownIt-Anchor" href="#kernelprocc"></a> kernel/proc.c</h3>
-<p>进程分配策略：</p>
-<p>累计进程号+1（保证了所有线程pid独立）</p>
-<p>遍历所有进程：</p>
-<p>找到第一个空闲的讲起返回</p>
-<h3 id="copyout"><a class="markdownIt-Anchor" href="#copyout"></a> copyout</h3>
-<p>用户态和内核态用的内存地址都是独立的</p>
-<p>需要用pagetable和copyoout来获取真实的地址来传入传出数据</p>
-
-        
-    </article>
-    <footer class="cube-excerpt-footer">
-        <a class="cube-excerpt-more" href="/2021/09/09/mit6.S081 lab2/">Read More</a>
-    </footer>
-</div>
-
-
-
-<ul class="cube-pagination cube-pagination-6">
-    
-    <li class="cube-pagination-prev disabled">
-        <span>« Prev</span>
-    </li>
-    
-    
-        
-            
-            <li class="cube-pagination-index disabled">
-                <span>1</span>
+            <li class="post">
+                <a href="/2021/09/09/mit6.S081 lab1/">mit6.S081 lab1</a>
             </li>
             
+            <li class="post">
+                <a href="/2021/09/09/mit6.S081 lab2/">mit6.S081 lab2</a>
+            </li>
+            
+        </ul>
         
+    </div>
     
-
-    
-    <li class="cube-pagination-next disabled">
-        <span>Next »</span>
-    </li>
-    
-</ul>
-
-<!--其他组件后续添加-->
+</div>
         </div>
         <div class="cube-right">
             
@@ -574,12 +298,12 @@ int main(int argc,char *argv[]){
     <div class="cube-boxs">
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/categories/OI/">#OI</a>
         </div>
         
         
-        <div class="cube-box ">
+        <div class="cube-box-bg ">
             <a href="/categories/计算机科学与技术/">#计算机科学与技术</a>
         </div>
         
@@ -600,7 +324,7 @@ int main(int argc,char *argv[]){
         </div>
         
         
-        <div class="cube-box-bg ">
+        <div class="cube-box ">
             <a href="/tags/构造/">#构造</a>
         </div>
         
