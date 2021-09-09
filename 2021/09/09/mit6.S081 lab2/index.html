@@ -1,187 +1,213 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="author" content="John Doe">
-    
-    
-    
-    
-    
-    
-    <title>mit6.S081 lab2 | illyasviel</title>
-    <!-- inject:style -->
-    <link href="/css/style.css" rel="stylesheet" type="text/css">
-    <!-- endinject -->
-    <style>
-        .cube-loading {
-            top: 0;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: url('/images/lg/loading.gif') no-repeat center center;
-            background-color: rgba(0,0,0,.7);
-        }
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.7.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-        .cube-loading.out {
-            display: none;
-        }
+<link rel="stylesheet" href="/css/main.css">
 
-        .cube-loading:before {
-            display: block;
-            content: 'Loading';
-            position: relative;
-            width: 100%;
-            top: 50%;
-            right: -50%;
-            color: #fff;
-        }
 
-        @media(max-width: 768px) {
-            .cube-loading:before {
-                font-size: 1.2em;
-                transform: translate(-24px,20px);
-                -webkit-transform: translate(-24px,20px);
-                -o-transform: translate(-24px,20px);
-                -ms-transform: translate(-24px,20px);
-            }
-        }
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-        @media(min-width: 768px) {
-            .cube-loading:before {
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-            }
-        }
-    </style>
-    
+  <meta name="description" content="Lab syscall: System calls  System call tracing (moderate) syscall流程： 调用system call(用户态)-&amp;gt;进入syscall.c作为跳板(内核态)-&amp;gt;跳入具体syscall函数(内核态) 内核态中存在myproc()可以返回一个struct proc中贮存这调用system call的进程的信息。  Sysinf">
+<meta name="keywords" content="操作系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mit6.S081 lab2">
+<meta property="og:url" content="http://yoursite.com/2021/09/09/mit6.S081 lab2/index.html">
+<meta property="og:site_name" content="yyyxxq">
+<meta property="og:description" content="Lab syscall: System calls  System call tracing (moderate) syscall流程： 调用system call(用户态)-&amp;gt;进入syscall.c作为跳板(内核态)-&amp;gt;跳入具体syscall函数(内核态) 内核态中存在myproc()可以返回一个struct proc中贮存这调用system call的进程的信息。  Sysinf">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-09-09T15:02:28.829Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mit6.S081 lab2">
+<meta name="twitter:description" content="Lab syscall: System calls  System call tracing (moderate) syscall流程： 调用system call(用户态)-&amp;gt;进入syscall.c作为跳板(内核态)-&amp;gt;跳入具体syscall函数(内核态) 内核态中存在myproc()可以返回一个struct proc中贮存这调用system call的进程的信息。  Sysinf">
 
-<link href="https://cdn.bootcss.com/KaTeX/0.7.1/katex.min.css" rel="stylesheet"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<link rel="canonical" href="http://yoursite.com/2021/09/09/mit6.S081 lab2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>mit6.S081 lab2 | yyyxxq</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
 </head>
-<body>
-<!-- hexo-inject:begin --><!-- hexo-inject:end --><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.0.0/styles/monokai-sublime.min.css">
-<div class="cube-body">
-    <nav id="cube-top-memu" class="cube-menu">
-    <ul class="cube-menu-collapse">
-        
-        <li>
-            <i class="cube-icon cube-icon-home" aria-hidden="true"></i>
-            <a href="/">首页</a>
-        </li>
-        
-        <li>
-            <i class="cube-icon cube-icon-archive" aria-hidden="true"></i>
-            <a href="/archives">归档</a>
-        </li>
-        
-        <li>
-            <i class="cube-icon cube-icon-categories" aria-hidden="true"></i>
-            <a href="/categories">分类</a>
-        </li>
-        
-        <li>
-            <i class="cube-icon cube-icon-tags" aria-hidden="true"></i>
-            <a href="/tags">标签</a>
-        </li>
-        
-        <li>
-            <i class="cube-icon cube-icon-about" aria-hidden="true"></i>
-            <a href="https://github.com/yyyxxq">关于我</a>
-        </li>
-        
-    </ul>
-</nav>
-<nav class="cube-side-menu" id="cube-side-menu">
-    <ul class="cube-menu-list">
-        
-        <li>
-            <a class="lrc-control">Open Lyrics</a>
-        </li>
-        
-        <li>
-            <a class="scroll-to-top">Top</a>
-        </li>
-    </ul>
-</nav>
-    <header class="cube-header" id="cube-header">
-    <img src=" https://yyxxqq.github.io/picture/无标题.jpg " alt="头部背景图片">
-    
-    <div class="cube-type">
-        <span class="cube-typed-title">yyyxxq</span>
-        <span class="cube-typed-cursor">|</span>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-    
-</header>
+  </div>
 
-    <style>
-        nav.cube-menu:before {
-            content: '';
-            visibility: hidden;
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 44px;
-        
-            filter: blur(5px);
-            -webkit-filter: blur(5px);
-        
-            z-index: -1;
-            background-image: url('https://raw.githubusercontent.com/yyxxqq/yyxxqq.github.io/master/picture/back.jpg');
-            background-repeat: no-repeat;
-            background-position: center -206px;
-            background-size: cover;
-            background-color: transparent;
-        }
+  <div class="site-meta">
 
-        header.cube-background.cube-header-background {
-            visibility: hidden;
-            background-image: url('https://raw.githubusercontent.com/yyxxqq/yyxxqq.github.io/master/picture/back.jpg');
-            background-position: center -250px;
-        }
-    </style>
-    <header class="cube-background cube-header-background">
-        
-        <div class="cube-type">
-            <span class="cube-typed-title">yyyxxq</span>
-            <span class="cube-typed-cursor">|</span>
-        </div>
-        
-    </header>
-    <div class="load-header-background"></div>
-    <script>
-        (function (window) {
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">yyyxxq</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
 
-            window.headerModule = {}
-            window.headerModule.image = {
-                width: '3806',
-                height: '500'
-            }
-
-        })(window)
-    </script>
-    
-    <div class="cube-content">
-        <div class="cube-left">
-            <div class="cube-article">
-    <h1 class="title">mit6.S081 lab2</h1>
-    
-    <div class="cube-article-header">
-        <div class="cube-article-date">
-            <i class="cube-icon cube-icon-date" aria-hidden="true"></i>
-            <!-- moment.js对象 -->
-            2021-09-09
-        </div>
-        <div class="cube-article-tags">
-    <i class="cube-icon cube-icon-tag" aria-hidden="true"></i>
-    
-    <a href="/tags/操作系统/">#操作系统</a>
-    
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
 </div>
-    </div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
     
-    <div class="cube-article-content cube-markdown">
-        
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/09/mit6.S081 lab2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="yyyxxq">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yyyxxq">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mit6.S081 lab2
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-09-09 00:00:00 / 修改时间：23:02:28" itemprop="dateCreated datePublished" datetime="2021-09-09T00:00:00+08:00">2021-09-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机科学与技术/" itemprop="url" rel="index"><span itemprop="name">计算机科学与技术</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
         <h1 id="lab-syscall-system-calls"><a class="markdownIt-Anchor" href="#lab-syscall-system-calls"></a> Lab syscall: System calls</h1>
 <h2 id="system-call-tracing-moderate"><a class="markdownIt-Anchor" href="#system-call-tracing-moderate"></a> System call tracing (<a href="https://pdos.csail.mit.edu/6.828/2020/labs/guidance.html" target="_blank" rel="noopener">moderate</a>)</h2>
 <p>syscall流程：</p>
@@ -202,259 +228,189 @@
 <p>需要用pagetable和copyoout来获取真实的地址来传入传出数据</p>
 
     </div>
-</div>
 
-<div class="cube-article-nav">
-    <ul>
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/操作系统/" rel="tag"># 操作系统</a>
+          </div>
+
         
-        <li class="prev">
-            <a href="/2021/09/09/mit6.S081 lab1/">
-                <i class="cube-icon cube-prev" aria-hidden="true"></i>
-                mit6.S081 lab1
-            </a>
-        </li>
+
+
         
-        
-    </ul>
-</div>
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/09/08/mit6.S081 lab1/" rel="prev" title="mit6.S081 lab1">
+      <i class="fa fa-chevron-left"></i> mit6.S081 lab1
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
 
 
-<!-- TODO 根据theme.comment的内容进行入口选择 -->
 
+          </div>
+          
 
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
 
         </div>
-        <div class="cube-right">
-            
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
 
-<div class="cube-search cube-sidebar" id="cube-search">
-    <div class="search-container">
-        <input type="text" placeholder="Search" class="cube-search-input" id="cube-search-input">
-        <i class="cube-icon cube-icon-search cube-search-submit" aria-hidden="true"></i>
-    </div>
-    <!-- TODO 通过给window赋一个全局变量，通过脚本赋值 -->
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#lab-syscall-system-calls"><span class="nav-number">1.</span> <span class="nav-text"> Lab syscall: System calls</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#system-call-tracing-moderate"><span class="nav-number">1.1.</span> <span class="nav-text"> System call tracing (moderate)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sysinfo-moderate"><span class="nav-number">1.2.</span> <span class="nav-text"> Sysinfo (moderate)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#kernelkallocc"><span class="nav-number">1.2.1.</span> <span class="nav-text"> kernel/kalloc.c</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kernelprocc"><span class="nav-number">1.2.2.</span> <span class="nav-text"> kernel/proc.c</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#copyout"><span class="nav-number">1.2.3.</span> <span class="nav-text"> copyout</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">yyyxxq</p>
+  <div class="site-description" itemprop="description"></div>
 </div>
-<script>
-    (function (window) {
-        'use strict';
-        window.searchModule = {}
-        window.searchModule.JSONUrl = '/content.json'
-        window.searchModule.rootUrl = '/'
-    })(window)
-</script>
-<div class="cube-search-form">
-    <div class="cube-search-control">
-        <input type="text" placeholder="Search" class="search-input">
-        <a class="close-button">
-            <i class="cube-icon cube-close" aria-hidden="true"></i>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
         </a>
-    </div>
-    <div class="cube-search-result"></div>
-</div>
-
-
-<div class="cube-author cube-sidebar" id="cube-author">
-    
-    
-    <span>John Doe</span>
-    
-    
-    <div class="count">
-        <a class="count articles"><span>2</span>Article</a>
-        <a class="count tags"><span>1</span>Tags</a>
-        <a class="count categories"><span>1</span>Categories</a>
-    </div>
-</div>
-
-
-
-<div class="cube-music cube-sidebar" id="cube-music">
-    <div class="cube-player aplayer" id="cube-player"></div>
-</div>
-<script>
-    (function (window) {
-        window.musicModule = {}
-        window.musicModule.musicConfig = '{"narrow":false,"autoplay":false,"showlrc":3,"theme":"#b7daff","mutex":true,"mode":"circulation","preload":"auto","listmaxheight":"513px","music":[{"title":"彼方 - 星尘","author":"乌龟sui","url":"https://yyxxqq.github.io/music/%E6%98%9F%E5%B0%98%20-%20%E3%80%90%E6%98%9F%E5%B0%98%E3%80%91%E5%BD%BC%E6%96%B9.mp3","lrc":"https://yyxxqq.github.io/music/%E3%80%90%E6%98%9F%E5%B0%98%E3%80%91%E5%BD%BC%E6%96%B9-%E6%98%9F%E5%B0%98.lrc","pic":"http://yoursite.com/images/music/undefined"}]}'
-        window.musicModule.lrcConfig = {
-            open: 'Open Lyrics',
-            close: 'Close Lyrics'
-        }
-    })(window)
-</script>
-
-
-
-<div class="cube-recent-posts cube-sidebar" id="cube-recent-posts">
-    <div class="title">
-        <a>Recent Posts</a>
-    </div>
-    <ul class="list">
-        
-        
-        <li>
-            <!-- TODO 如果文章要显示图片，那么在front-matter上添加preview属性(url or path) -->
-            
-            <div class="normal">
-                <p class="index first">
-                    <span>1</span>
-                </p>
-                <p class="title">
-                    <a href="/2021/09/09/mit6.S081 lab1/" title="mit6.S081 lab1">mit6.S081 lab1</a>
-                </p>
-            </div>
-            
-        </li>
-        
-        
-        
-        <li>
-            <div class="normal">
-                <p class="index">
-                    <span>2</span>
-                </p>
-                <p class="title">
-                    <a href="/2021/09/09/mit6.S081 lab2/" title="mit6.S081 lab2">mit6.S081 lab2</a>
-                </p>
-            </div>
-        </li>
-        
-        
-    </ul>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
 </div>
 
 
 
-<div class="cube-categories cube-sidebar" id="cube-categories">
-    <div class="title">
-        <a href="/categories">Categories</a>
+      </div>
+
     </div>
-    <div class="cube-boxs">
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
         
+
         
-        <div class="cube-box ">
-            <a href="/categories/计算机科学与技术/">#计算机科学与技术</a>
-        </div>
-        
-    </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yyyxxq</span>
 </div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
 
 
 
-<div class="cube-tagcloud cube-sidebar" id="cube-tagcloud">
-    <div class="title">
-        <a href="/tags">Tagcloud</a>
-    </div>
-    <div class="cube-boxs">
-        
-        
-        <div class="cube-box-bg ">
-            <a href="/tags/操作系统/">#操作系统</a>
-        </div>
-        
-    </div>
-</div>
 
 
 
-<div class="cube-links cube-sidebar" id="cube-links">
-    <div class="title">
-        <a>Links</a>
-    </div>
-    <ul class="list">
-        
-        <li>
-            
-            
-            <img src="http://cube-1252774894.cosgz.myqcloud.com/links/GitHub.png">
-            
-            <a href="https://github.com/yyyxxq" target="_blank">yyyxxq</a>
-        </li>
-        
-    </ul>
-</div>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
-<div class="cube-friend-links cube-sidebar" id="cube-friend-links">
-    <div class="title">
-        <a>Friend Links</a>
-    </div>
-    <ul class="list">
-        
-        <li>
-            <!-- TODO change avatar.png to friend.png-->
-            <img src="https://yyxxqq.github.io/picture/ypl.jpg">
-            <a href="http://sdchr.github.io" target="_blank">杨沛霖</a>
-        </li>
-        
-        <li>
-            <!-- TODO change avatar.png to friend.png-->
-            <img src="https://yyxxqq.github.io/picture/zjt.jpg">
-            <a href="http://101.236.55.78/" target="_blank">郑钧天</a>
-        </li>
-        
-        <li>
-            <!-- TODO change avatar.png to friend.png-->
-            <img src="https://yyxxqq.github.io/picture/yww.jpg">
-            <a href="http://www.cnblogs.com/ywwyww" target="_blank">袁无为</a>
-        </li>
-        
-        <li>
-            <!-- TODO change avatar.png to friend.png-->
-            <img src="https://yyxxqq.github.io/picture/xfz.jpg">
-            <a href="http://www.cnblogs.com/xiefengze1" target="_blank">谢丰泽</a>
-        </li>
-        
-        <li>
-            <!-- TODO change avatar.png to friend.png-->
-            <img src="https://yyxxqq.github.io/picture/hy.jpg">
-            <a href="http://www.cnblogs.com/yoyoball" target="_blank">洪云</a>
-        </li>
-        
-        <li>
-            <!-- TODO change avatar.png to friend.png-->
-            <img src="https://yyxxqq.github.io/picture/lyy.jpg">
-            <a href="http://www.cnblogs.com/jefflyy/" target="_blank">梁蕴誉</a>
-        </li>
-        
-        <li>
-            <!-- TODO change avatar.png to friend.png-->
-            <img src="https://yyxxqq.github.io/picture/dtz.jpg">
-            <a href="http://www.cnblogs.com/RogerDTZ" target="_blank">董廷臻</a>
-        </li>
-        
-    </ul>
-</div>
+  
 
 
-        </div>
-    </div>
-</div>
-<footer class="cube-footer">
-    
-© 2017 John Doe
 
-<br>
-Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>.&nbsp;Theme by <a href="https://github.com/ZEROKISEKI" target="_blank">AONOSORA</a>
-</footer>
-<!-- inject:script -->
-<script src="/js/script.js"></script>
-<!-- endinject -->
-<div class="cube-loading out"></div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
 </body>
 </html>
